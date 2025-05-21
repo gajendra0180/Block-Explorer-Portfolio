@@ -791,19 +791,42 @@
             0%, 100% { opacity: 0.3; }
             50% { opacity: 1; }
         }
+        
+        /* Fix network stats bar in light mode with higher specificity */
+        body.light-mode .network-stats .stat-item .stat-label {
+            color: #343a40 !important;
+            font-weight: 700 !important;
+            font-size: 14px !important;
+        }
+        
+        body.light-mode .network-stats .stat-item .stat-value {
+            color: #212529 !important;
+            font-weight: 700 !important;
+            font-size: 15px !important;
+        }
+        
+        body.light-mode .network-stats {
+            background-color: #ffffff !important;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05) !important;
+            border: 1px solid #e9ecef !important;
+        }
     </style>
     <script>
         // Simple cursor implementation
         document.addEventListener('DOMContentLoaded', function() {
-            // CRITICAL: Force overlay to be visible and prevent any auto-hiding
+            // CRITICAL: Force overlay to be visible
             const overlay = document.querySelector('.welcome-overlay');
-            overlay.style.opacity = '1';
-            overlay.style.display = 'flex';
-            overlay.style.visibility = 'visible';
             
-            // Check if we've entered before in this session
-            const hasEntered = sessionStorage.getItem('hasEntered');
-            if (!hasEntered) {
+            // Check if we should show the welcome screen
+            // Only hide if the user has explicitly clicked enter
+            if (localStorage.getItem('userEnteredSite') !== 'true') {
+                overlay.style.opacity = '1';
+                overlay.style.display = 'flex';
+                overlay.style.visibility = 'visible';
+                
+                // Clear any potential auto-hiding or timeouts
+                window.clearTimeout(window._overlayTimeout);
+                
                 // Create cursor element dynamically
                 const cursor = document.createElement('div');
                 cursor.className = 'bitcoin-cursor';
@@ -871,7 +894,7 @@
                     dotsContainer.appendChild(dot);
                 }
                 
-                // Handle welcome overlay loading
+                // Handle welcome overlay loading - wait for explicit user action
                 const enterBtn = document.getElementById('enter-btn');
                 const enterNoMotion = document.getElementById('enter-no-motion');
                 const loadingPercentage = document.querySelector('.loading-percentage');
@@ -884,30 +907,25 @@
                 
                 // Simulate loading percentage
                 let percentage = 0;
-                let loadingComplete = false;
-                
                 const loadingInterval = setInterval(() => {
                     percentage += Math.floor(Math.random() * 5) + 1;
                     if (percentage > 100) percentage = 100;
                     
                     loadingPercentage.textContent = `${percentage}%`;
-                    if (loadingProgress) {
-                        loadingProgress.style.width = `${percentage}%`;
-                    }
+                    loadingProgress.style.width = `${percentage}%`;
                     
-                    if (percentage === 100 && !loadingComplete) {
-                        loadingComplete = true;
+                    if (percentage === 100) {
                         clearInterval(loadingInterval);
                         
-                        if (enterBtn) {
-                            enterBtn.disabled = false;
-                            enterBtn.classList.add('ready');
-                            enterBtn.style.animation = 'pulse 1.5s infinite';
-                        }
+                        // Enable enter button
+                        enterBtn.disabled = false;
+                        enterBtn.classList.add('ready');
                         
-                        if (loadingPercentage) {
-                            loadingPercentage.style.color = '#5d4fff';
-                        }
+                        // Pulse animation for the Enter button
+                        enterBtn.style.animation = 'pulse 1.5s infinite';
+                        
+                        // Update loading percentage color
+                        loadingPercentage.style.color = '#5d4fff';
                         
                         // Show the click indicator
                         const clickIndicator = document.getElementById('click-indicator');
@@ -915,14 +933,18 @@
                             clickIndicator.classList.add('visible');
                         }
                     }
+                    // CRITICAL: Never auto-enter
                 }, 100);
                 
-                // ONLY enter when button is clicked - handle enter button click
+                // ONLY enter when explicitly clicked
                 if (enterBtn) {
                     enterBtn.addEventListener('click', function() {
-                        if (overlay && !enterBtn.disabled) {
+                        if (!enterBtn.disabled) {
+                            // Set flag that user has entered
+                            localStorage.setItem('userEnteredSite', 'true');
+                            
+                            // Hide overlay
                             overlay.style.opacity = '0';
-                            sessionStorage.setItem('hasEntered', 'true');
                             setTimeout(() => {
                                 overlay.style.display = 'none';
                             }, 600);
@@ -930,18 +952,20 @@
                     });
                 }
                 
-                // ONLY enter when link is clicked - handle enter without motion
+                // ONLY enter when explicitly clicked
                 if (enterNoMotion) {
                     enterNoMotion.addEventListener('click', function(e) {
                         e.preventDefault();
-                        if (overlay) {
-                            overlay.style.display = 'none';
-                            sessionStorage.setItem('hasEntered', 'true');
-                        }
+                        
+                        // Set flag that user has entered
+                        localStorage.setItem('userEnteredSite', 'true');
+                        
+                        // Hide overlay immediately
+                        overlay.style.display = 'none';
                     });
                 }
             } else {
-                // If already entered in this session, hide the overlay
+                // User has already entered, hide overlay immediately
                 overlay.style.display = 'none';
             }
             
