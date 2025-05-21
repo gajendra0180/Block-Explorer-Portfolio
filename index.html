@@ -1,0 +1,2201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>0xGajendraP | Block Explorer</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='40' fill='%235d4fff' /%3E%3Ctext x='50' y='63' font-family='Arial' font-size='40' font-weight='bold' text-anchor='middle' fill='white'%3EGP%3C/text%3E%3C/svg%3E">
+    <style>
+        /* Inline styles for immediate cursor application */
+        body {
+            cursor: none !important;
+        }
+        .bitcoin-cursor {
+            position: fixed;
+            width: 30px;
+            height: 30px;
+            pointer-events: none;
+            z-index: 10000;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23f7931a"><path d="M12,24c6.6,0,12-5.4,12-12S18.6,0,12,0S0,5.4,0,12S5.4,24,12,24z M17.6,10.8c0.2-1.6-1-2.4-2.6-3l0.5-2.1l-1.3-0.3l-0.5,2c-0.3-0.1-0.7-0.2-1-0.2l0.5-2.1L12,4.8l-0.5,2.1C11.1,6.8,10.8,6.7,10.5,6.6l0,0L8.6,6.1L8.3,7.5c0,0,1,0.2,1,0.2C9.7,7.9,9.8,8.2,9.8,8.5l-0.6,2.5c0,0,0.1,0,0.1,0c0,0-0.1,0-0.1,0L8.6,14c-0.1,0.2-0.3,0.3-0.5,0.3l-1,0.2l0.3,1.5l1.9,0.5c0.3,0.1,0.7,0.2,1,0.3l-0.5,2.1l1.3,0.3l0.5-2.1c0.4,0.1,0.7,0.2,1.1,0.2l-0.5,2.1l1.3,0.3l0.5-2.1c2.2-0.4,3.8-1.5,3.9-3.8c0.1-1.5-0.6-2.4-1.9-2.9C16.7,12.5,17.5,11.9,17.6,10.8L17.6,10.8z M15.3,14.9c-0.1,1.4-2.9,1.3-3.7,1.1L12,14c0.8,0.2,3.6,0.7,3.8-0.6c0.2-1.3-1.9-1.6-2.7-1.8l0.5-2c0.8,0.2,3.2,0.6,3.3-0.6C17,7.8,15.3,7.5,14.4,7.3l0.2-0.9c-0.4-0.1-0.8-0.2-1.3-0.1l-0.2,0.9c-0.3-0.1-0.7-0.2-1-0.2l0.2-0.9L11,5.9l-0.2,0.9c-2.6-0.5-4.3,0.2-4.6,2.5c-0.3,1.8,0.7,2.8,2,3.4L7.8,14c-0.9-0.2-3.2-0.7-3.3,0.6c-0.2,1.3,1.9,1.7,2.7,1.8l-0.3,1c0.4,0.1,0.8,0.2,1.3,0.1l0.2-1c0.4,0.1,0.7,0.2,1.1,0.2l-0.2,1.1l1.3,0.3l0.2-1.1C12.5,17.3,15.4,16.4,15.3,14.9L15.3,14.9z"/></svg>') center/contain no-repeat;
+        }
+        
+        /* Project and achievement links */
+        .project-link, .tx-title a {
+            display: inline-block;
+            margin-left: 10px;
+            color: #5d4fff;
+            transition: all 0.3s ease;
+            vertical-align: middle;
+        }
+        
+        .project-link:hover, .tx-title a:hover {
+            color: #8c7dff;
+            transform: scale(1.1);
+        }
+        
+        /* Fix alignment for transaction status tags */
+        .tx-title {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .tx-status {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-left: auto;
+            min-width: 90px;
+            text-align: center;
+        }
+        
+        .tx-status.success {
+            background-color: rgba(40, 167, 69, 0.15);
+            color: #28a745;
+        }
+        
+        .tx-status.pending {
+            background-color: rgba(255, 193, 7, 0.15);
+            color: #ffc107;
+        }
+        
+        /* Fix for Contact form visibility */
+        .method-instructions {
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: rgba(93, 79, 255, 0.1);
+            border-left: 3px solid #5d4fff;
+            border-radius: 4px;
+        }
+        
+        /* Dark/Light mode toggle */
+        body {
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        body.light-mode {
+            background-color: #f8f9fa;
+            color: #343a40;
+        }
+        
+        body.light-mode .explorer-container,
+        body.light-mode .network-stats,
+        body.light-mode .explorer-header-main {
+            background-color: #ffffff;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e9ecef;
+        }
+        
+        body.light-mode .explorer-title,
+        body.light-mode .tx-label,
+        body.light-mode .section-header h2 {
+            color: #343a40;
+        }
+        
+        body.light-mode .explorer-header {
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        body.light-mode .tx-row {
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        body.light-mode .token-item,
+        body.light-mode .transaction-item {
+            background-color: #ffffff;
+            border: 1px solid #e9ecef;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+        }
+        
+        body.light-mode .tx-status.success {
+            background-color: rgba(40, 167, 69, 0.1);
+            color: #28a745;
+        }
+        
+        body.light-mode .tx-status.pending {
+            background-color: rgba(255, 193, 7, 0.1);
+            color: #ffc107;
+        }
+        
+        body.light-mode .section-header.explorer-style {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+        }
+        
+        body.light-mode .project-link, 
+        body.light-mode .tx-title a {
+            color: #5d4fff;
+        }
+        
+        body.light-mode .explorer-search .search-input {
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            color: #343a40;
+        }
+        
+        body.light-mode .explorer-nav ul li a {
+            color: #343a40;
+        }
+        
+        body.light-mode .explorer-nav ul li a.active {
+            color: #5d4fff;
+            border-bottom: 2px solid #5d4fff;
+        }
+        
+        body.light-mode .progress-bar {
+            background-color: #e9ecef;
+        }
+        
+        body.light-mode .progress-fill {
+            background: linear-gradient(90deg, #5d4fff, #8c7dff);
+        }
+        
+        body.light-mode .hash-id {
+            color: #343a40;
+        }
+        
+        body.light-mode .explorer-footer {
+            background-color: #f8f9fa;
+            border-top: 1px solid #e9ecef;
+        }
+        
+        body.light-mode .footer-bottom {
+            background-color: #e9ecef;
+        }
+        
+        /* Additional light mode fixes for readability */
+        body.light-mode .tx-description,
+        body.light-mode .tx-info,
+        body.light-mode .token-details,
+        body.light-mode .token-value,
+        body.light-mode .address,
+        body.light-mode .method-description,
+        body.light-mode .contact-addresses,
+        body.light-mode .category-header h4 {
+            color: #343a40 !important;
+        }
+        
+        body.light-mode .section-subtitle {
+            color: #6c757d;
+        }
+        
+        body.light-mode .contract-code {
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+        }
+        
+        body.light-mode .contract-code pre {
+            color: #343a40;
+            background-color: #f8f9fa;
+        }
+        
+        body.light-mode code {
+            color: #343a40;
+            background-color: #f8f9fa;
+        }
+        
+        body.light-mode .contract-code pre code {
+            font-family: 'Space Mono', monospace;
+            line-height: 1.5;
+            padding: 0;
+            background-color: transparent;
+        }
+        
+        body.light-mode .method-name {
+            color: #5d4fff;
+            background-color: rgba(93, 79, 255, 0.08);
+        }
+        
+        body.light-mode .tx-meta {
+            color: #6c757d;
+        }
+        
+        body.light-mode .gas-fee {
+            color: #5d4fff;
+        }
+        
+        body.light-mode .interaction-form {
+            background-color: #ffffff;
+            border: 1px solid #e9ecef;
+        }
+        
+        body.light-mode .method-instructions {
+            background-color: rgba(93, 79, 255, 0.05);
+            color: #343a40;
+            border-left: 3px solid #5d4fff;
+        }
+        
+        /* Enhanced loading page with a more dynamic grid background */
+        .welcome-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0f1728, #1e2d50);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            transition: opacity 0.8s ease, transform 0.6s ease;
+        }
+        
+        .grid-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(26, 52, 107, 0.3) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(26, 52, 107, 0.3) 1px, transparent 1px);
+            background-size: 40px 40px;
+            animation: gridMove 15s linear infinite;
+            z-index: -1;
+        }
+        
+        .blockchain-blocks {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            perspective: 1000px;
+            z-index: -1;
+        }
+        
+        .block {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background: rgba(93, 79, 255, 0.2);
+            border: 1px solid rgba(93, 79, 255, 0.4);
+            border-radius: 8px;
+            transform-style: preserve-3d;
+            animation: blockFloat 8s infinite ease-in-out;
+        }
+        
+        .floating-dots {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        .dot {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: rgba(124, 151, 255, 0.6);
+            animation: floatUp 10s infinite ease-in-out;
+        }
+        
+        @keyframes gridMove {
+            0% {
+                transform: translateY(0) scale(1);
+            }
+            50% {
+                transform: translateY(20px) scale(1.1);
+            }
+            100% {
+                transform: translateY(0) scale(1);
+            }
+        }
+        
+        @keyframes blockFloat {
+            0%, 100% {
+                transform: translateY(0) translateX(0) rotateX(0) rotateY(0);
+            }
+            25% {
+                transform: translateY(-20px) translateX(10px) rotateX(5deg) rotateY(10deg);
+            }
+            50% {
+                transform: translateY(10px) translateX(-15px) rotateX(-5deg) rotateY(-15deg);
+            }
+            75% {
+                transform: translateY(-15px) translateX(5px) rotateX(10deg) rotateY(5deg);
+            }
+        }
+        
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) scale(1);
+                opacity: 0;
+            }
+        }
+        
+        .welcome-content {
+            position: relative;
+            text-align: center;
+            padding: 2.5rem;
+            background: rgba(16, 26, 50, 0.7);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            max-width: 600px;
+            width: 90%;
+            z-index: 1;
+            transform: translateY(20px);
+            animation: contentAppear 1s forwards ease-out;
+        }
+        
+        @keyframes contentAppear {
+            0% {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .project-number-large {
+            font-family: 'Space Mono', monospace;
+            font-size: 14px;
+            letter-spacing: 3px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 15px;
+            text-transform: uppercase;
+        }
+        
+        .project-number-large::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 2px;
+            background: #5d4fff;
+        }
+        
+        .welcome-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, #5d4fff, #c4bfff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .welcome-subtitle {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 30px;
+            max-width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .enter-btn {
+            background: linear-gradient(90deg, #5d4fff, #7e70ff);
+            border: none;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 15px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 5px 15px rgba(93, 79, 255, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .enter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(93, 79, 255, 0.6);
+        }
+        
+        .enter-btn::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.3), transparent 70%);
+            opacity: 0;
+            transform: scale(0.5);
+            transition: transform 0.8s ease, opacity 0.8s ease;
+        }
+        
+        .enter-btn:hover::after {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        .enter-btn.ready {
+            animation: pulse 1.5s infinite;
+        }
+        
+        .enter-without-motion {
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-top: 10px;
+            transition: color 0.3s ease;
+        }
+        
+        .enter-without-motion:hover {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: underline;
+        }
+        
+        .loading-percentage {
+            position: absolute;
+            bottom: 20px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.7);
+            transition: color 0.3s ease;
+            font-family: 'Space Mono', monospace;
+            letter-spacing: 2px;
+        }
+        
+        .loading-bar {
+            position: absolute;
+            bottom: 60px;
+            width: 200px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        
+        .loading-progress {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #5d4fff, #8c7dff);
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+        
+        /* Contact form enhancements */
+        .interaction-form {
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(93, 79, 255, 0.05);
+            border-radius: 8px;
+            border: 1px solid rgba(93, 79, 255, 0.2);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #5d4fff;
+        }
+        
+        .form-group input, 
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 6px;
+            border: 1px solid rgba(93, 79, 255, 0.3);
+            background: rgba(20, 30, 60, 0.2);
+            color: #fff;
+            font-family: 'Space Grotesk', sans-serif;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group input:focus, 
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #5d4fff;
+            box-shadow: 0 0 0 3px rgba(93, 79, 255, 0.2);
+        }
+        
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .execute-btn {
+            background: #5d4fff;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: block;
+            width: 100%;
+            margin-top: 15px;
+            position: relative;
+            z-index: 100;
+        }
+        
+        .execute-btn:hover {
+            background: #4a3cc8;
+            transform: translateY(-2px);
+        }
+        
+        .gas-limit-wrapper {
+            margin: 15px 0;
+            padding: 10px;
+            background: rgba(93, 79, 255, 0.1);
+            border-radius: 6px;
+            font-size: 14px;
+        }
+        
+        .gas-value {
+            color: #5d4fff;
+            font-weight: 600;
+        }
+        
+        /* Light mode for form */
+        body.light-mode .form-group input, 
+        body.light-mode .form-group textarea {
+            background: #f5f5f7;
+            color: #333;
+            border-color: #e0e0e0;
+        }
+        
+        body.light-mode .form-group label {
+            color: #333;
+        }
+        
+        body.light-mode .gas-limit-wrapper {
+            background: rgba(93, 79, 255, 0.05);
+            color: #333;
+        }
+        
+        body.light-mode .method-instructions {
+            background-color: rgba(93, 79, 255, 0.05);
+            color: #333;
+        }
+        
+        /* Add animations and hover effects */
+        .explorer-container {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .explorer-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .transaction-item {
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+        }
+        
+        .transaction-item:hover {
+            transform: scale(1.01);
+            box-shadow: 0 5px 15px rgba(93, 79, 255, 0.15);
+            background-color: rgba(93, 79, 255, 0.02);
+        }
+        
+        .token-item {
+            transition: transform 0.3s ease;
+        }
+        
+        .token-item:hover {
+            transform: translateX(5px);
+        }
+        
+        .progress-fill {
+            transition: width 1.5s ease-in-out;
+        }
+        
+        /* Fix all headings in light mode with higher specificity */
+        body.light-mode h1, 
+        body.light-mode h2, 
+        body.light-mode h3, 
+        body.light-mode h4, 
+        body.light-mode h5, 
+        body.light-mode h6,
+        body.light-mode .explorer-title h3,
+        body.light-mode .section-header h2,
+        body.light-mode .category-header h4,
+        body.light-mode .token-name,
+        body.light-mode .tx-title {
+            color: #222222 !important;
+            font-weight: 700 !important;
+        }
+        
+        body.light-mode .explorer-title,
+        body.light-mode .section-header.explorer-style,
+        body.light-mode .category-header {
+            color: #222222 !important;
+        }
+        
+        body.light-mode .explorer-title .icon,
+        body.light-mode .section-header .icon,
+        body.light-mode .transaction-item .icon,
+        body.light-mode .explorer-container .icon {
+            color: #5d4fff !important;
+        }
+        
+        /* Ensure section headers are visible */
+        body.light-mode .section-header.explorer-style {
+            background: linear-gradient(135deg, #e9ecef, #f8f9fa) !important;
+            padding: 15px !important;
+            border-radius: 8px !important;
+            border: 1px solid #d1d9e6 !important;
+            margin-bottom: 20px !important;
+        }
+        
+        body.light-mode .section-subtitle {
+            color: #495057 !important;
+            font-weight: 500 !important;
+        }
+        
+        /* Ensure explorer headings are visible */
+        body.light-mode .explorer-header,
+        body.light-mode .explorer-container .explorer-header {
+            background-color: #e9ecef !important;
+            border-bottom: 1px solid #d1d9e6 !important;
+            padding: 15px !important;
+        }
+        
+        /* Force high contrast for all important text elements */
+        body.light-mode .explorer-container,
+        body.light-mode .tx-description,
+        body.light-mode .tx-info,
+        body.light-mode .token-details,
+        body.light-mode .token-value,
+        body.light-mode .method-description,
+        body.light-mode .contact-addresses,
+        body.light-mode p,
+        body.light-mode .tx-meta,
+        body.light-mode .tx-from,
+        body.light-mode .tx-to {
+            color: #343a40 !important;
+        }
+        
+        /* Add borders to improve visibility of sections in light mode */
+        body.light-mode .explorer-container {
+            border: 1px solid #d1d9e6 !important;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05) !important;
+        }
+        
+        /* Force visibility on contact form elements */
+        #contactForm {
+            display: block !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+        }
+        
+        /* Ensure form inputs are always visible */
+        .form-group input, 
+        .form-group textarea {
+            width: 100% !important;
+            display: block !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+            z-index: 10 !important;
+        }
+        
+        /* Make contact form elements stand out with a border */
+        .contract-interaction {
+            border: 2px solid #5d4fff !important;
+            padding: 20px !important;
+            border-radius: 8px !important;
+            margin-top: 20px !important;
+            background-color: rgba(20, 30, 60, 0.3) !important;
+            display: block !important;
+            z-index: 100 !important;
+            position: relative !important;
+        }
+        
+        /* Clear fix for form visibility */
+        .interaction-form:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+        
+        /* Make submit button more visible */
+        .execute-btn {
+            background: #5d4fff !important;
+            color: white !important;
+            font-weight: bold !important;
+            padding: 15px !important;
+            margin-top: 15px !important;
+            border-radius: 8px !important;
+            position: relative !important;
+            z-index: 1000 !important;
+            cursor: pointer !important;
+            display: block !important;
+            width: 100% !important;
+        }
+        
+        /* Light mode form styles */
+        body.light-mode .contract-interaction {
+            background-color: #f8f9fa !important;
+            border: 2px solid #5d4fff !important;
+        }
+        
+        body.light-mode .form-group input, 
+        body.light-mode .form-group textarea {
+            background-color: white !important;
+            color: #343a40 !important;
+            border: 1px solid #ced4da !important;
+        }
+        
+        /* Add a "click to enter" indicator */
+        .click-indicator {
+            position: absolute;
+            bottom: 100px;
+            font-size: 14px;
+            color: #5d4fff;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 500;
+        }
+        
+        .click-indicator.visible {
+            opacity: 1;
+            animation: fadeInOut 2s infinite;
+        }
+        
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+    </style>
+    <script>
+        // Simple cursor implementation
+        document.addEventListener('DOMContentLoaded', function() {
+            // CRITICAL: Force overlay to be visible and prevent any auto-hiding
+            const overlay = document.querySelector('.welcome-overlay');
+            overlay.style.opacity = '1';
+            overlay.style.display = 'flex';
+            overlay.style.visibility = 'visible';
+            
+            // Check if we've entered before in this session
+            const hasEntered = sessionStorage.getItem('hasEntered');
+            if (!hasEntered) {
+                // Create cursor element dynamically
+                const cursor = document.createElement('div');
+                cursor.className = 'bitcoin-cursor';
+                document.body.appendChild(cursor);
+                
+                // Handle cursor movement
+                document.addEventListener('mousemove', function(e) {
+                    // Apply positioning using requestAnimationFrame for smoother movement
+                    requestAnimationFrame(function() {
+                        cursor.style.left = (e.clientX - 15) + 'px';
+                        cursor.style.top = (e.clientY - 15) + 'px';
+                    });
+                });
+                
+                // Hide cursor when leaving window
+                document.addEventListener('mouseout', function(e) {
+                    if (!e.relatedTarget) {
+                        cursor.style.display = 'none';
+                    }
+                });
+                
+                // Show cursor when entering window
+                document.addEventListener('mouseover', function() {
+                    cursor.style.display = 'block';
+                });
+                
+                // Create blockchain blocks for welcome overlay
+                const blocksContainer = document.getElementById('blockchain-blocks');
+                if (blocksContainer) {
+                    // Create 15 blockchain blocks with random positions
+                    for (let i = 0; i < 15; i++) {
+                        const block = document.createElement('div');
+                        block.className = 'block';
+                        
+                        // Random positioning
+                        block.style.top = `${Math.random() * 90}%`;
+                        block.style.left = `${Math.random() * 90}%`;
+                        
+                        // Random size (30px - 60px)
+                        const size = 30 + Math.random() * 30;
+                        block.style.width = `${size}px`;
+                        block.style.height = `${size}px`;
+                        
+                        // Random animation duration and delay
+                        block.style.animationDuration = `${6 + Math.random() * 8}s`;
+                        block.style.animationDelay = `${Math.random() * 5}s`;
+                        
+                        // Random opacity
+                        block.style.opacity = 0.1 + Math.random() * 0.3;
+                        
+                        blocksContainer.appendChild(block);
+                    }
+                }
+                
+                // Create floating dots for welcome overlay
+                const dotsContainer = document.querySelector('.floating-dots');
+                
+                // Add dots
+                for (let i = 0; i < 30; i++) {
+                    const dot = document.createElement('div');
+                    dot.className = 'dot';
+                    dot.style.left = `${Math.random() * 100}%`;
+                    dot.style.animationDuration = `${Math.random() * 10 + 5}s`;
+                    dot.style.animationDelay = `${Math.random() * 5}s`;
+                    dotsContainer.appendChild(dot);
+                }
+                
+                // Handle welcome overlay loading
+                const enterBtn = document.getElementById('enter-btn');
+                const enterNoMotion = document.getElementById('enter-no-motion');
+                const loadingPercentage = document.querySelector('.loading-percentage');
+                const loadingProgress = document.getElementById('loading-progress');
+                
+                // Disable enter button until loading completes
+                if (enterBtn) {
+                    enterBtn.disabled = true;
+                }
+                
+                // Simulate loading percentage
+                let percentage = 0;
+                let loadingComplete = false;
+                
+                const loadingInterval = setInterval(() => {
+                    percentage += Math.floor(Math.random() * 5) + 1;
+                    if (percentage > 100) percentage = 100;
+                    
+                    loadingPercentage.textContent = `${percentage}%`;
+                    if (loadingProgress) {
+                        loadingProgress.style.width = `${percentage}%`;
+                    }
+                    
+                    if (percentage === 100 && !loadingComplete) {
+                        loadingComplete = true;
+                        clearInterval(loadingInterval);
+                        
+                        if (enterBtn) {
+                            enterBtn.disabled = false;
+                            enterBtn.classList.add('ready');
+                            enterBtn.style.animation = 'pulse 1.5s infinite';
+                        }
+                        
+                        if (loadingPercentage) {
+                            loadingPercentage.style.color = '#5d4fff';
+                        }
+                        
+                        // Show the click indicator
+                        const clickIndicator = document.getElementById('click-indicator');
+                        if (clickIndicator) {
+                            clickIndicator.classList.add('visible');
+                        }
+                    }
+                }, 100);
+                
+                // ONLY enter when button is clicked - handle enter button click
+                if (enterBtn) {
+                    enterBtn.addEventListener('click', function() {
+                        if (overlay && !enterBtn.disabled) {
+                            overlay.style.opacity = '0';
+                            sessionStorage.setItem('hasEntered', 'true');
+                            setTimeout(() => {
+                                overlay.style.display = 'none';
+                            }, 600);
+                        }
+                    });
+                }
+                
+                // ONLY enter when link is clicked - handle enter without motion
+                if (enterNoMotion) {
+                    enterNoMotion.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        if (overlay) {
+                            overlay.style.display = 'none';
+                            sessionStorage.setItem('hasEntered', 'true');
+                        }
+                    });
+                }
+            } else {
+                // If already entered in this session, hide the overlay
+                overlay.style.display = 'none';
+            }
+            
+            // Apply syntax highlighting to contract code
+            const applyCodeSyntaxHighlighting = () => {
+                const codeElement = document.querySelector('.contract-code pre code');
+                if (codeElement) {
+                    let content = codeElement.innerHTML;
+                    
+                    // Apply syntax highlighting with regex replacements
+                    // Comments
+                    content = content.replace(
+                        /(\/\*\*[\s\S]*?\*\/|\/\/.*)/g, 
+                        '<span class="comment">$1</span>'
+                    );
+                    
+                    // Keywords
+                    const keywords = ['contract', 'function', 'public', 'private', 'pure', 'view', 'memory', 'returns', 'return', 'struct', 'if', 'else', 'for', 'while'];
+                    keywords.forEach(keyword => {
+                        const regex = new RegExp(`\\b(${keyword})\\b`, 'g');
+                        content = content.replace(regex, '<span class="keyword">$1</span>');
+                    });
+                    
+                    // Types
+                    const types = ['string', 'uint', 'uint256', 'int', 'int256', 'bool', 'address', 'bytes', 'bytes32'];
+                    types.forEach(type => {
+                        const regex = new RegExp(`\\b(${type})\\b`, 'g');
+                        content = content.replace(regex, '<span class="type">$1</span>');
+                    });
+                    
+                    // Strings
+                    content = content.replace(
+                        /"([^"]*)"/g, 
+                        '"<span class="string">$1</span>"'
+                    );
+                    
+                    // Numbers
+                    content = content.replace(
+                        /\b(\d+)\b/g, 
+                        '<span class="number">$1</span>'
+                    );
+                    
+                    codeElement.innerHTML = content;
+                }
+            };
+            
+            // Apply code highlighting
+            setTimeout(applyCodeSyntaxHighlighting, 500);
+            
+            // Update timestamp dynamically
+            const updateTimestamp = () => {
+                const timestampEl = document.getElementById('current-timestamp');
+                if (timestampEl) {
+                    const now = new Date();
+                    const options = { 
+                        year: 'numeric', 
+                        month: 'long', 
+                        day: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    };
+                    const formattedDate = now.toLocaleDateString('en-US', options);
+                    timestampEl.textContent = `Latest timestamp: ${formattedDate}`;
+                }
+            };
+            
+            // Initial timestamp update
+            updateTimestamp();
+            
+            // Update timestamp every minute
+            setInterval(updateTimestamp, 60000);
+            
+            // Handle theme toggle
+            const themeToggle = document.querySelector('.theme-toggle');
+            const themeIcon = themeToggle.querySelector('i');
+            
+            // Check for saved theme preference
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'light') {
+                document.body.classList.add('light-mode');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            }
+            
+            // Theme toggle functionality
+            themeToggle.addEventListener('click', function() {
+                document.body.classList.toggle('light-mode');
+                
+                // Update icon
+                if (document.body.classList.contains('light-mode')) {
+                    themeIcon.classList.remove('fa-moon');
+                    themeIcon.classList.add('fa-sun');
+                    localStorage.setItem('theme', 'light');
+                } else {
+                    themeIcon.classList.remove('fa-sun');
+                    themeIcon.classList.add('fa-moon');
+                    localStorage.setItem('theme', 'dark');
+                }
+            });
+            
+            // Handle contact form submission
+            const contactForm = document.getElementById('contactForm');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Simulate form submission
+                    const submitBtn = contactForm.querySelector('.execute-btn');
+                    submitBtn.textContent = 'Processing...';
+                    
+                    setTimeout(function() {
+                        submitBtn.textContent = 'Transaction Confirmed!';
+                        submitBtn.style.backgroundColor = '#28a745';
+                        
+                        // Reset form
+                        setTimeout(function() {
+                            contactForm.reset();
+                            submitBtn.textContent = 'Execute Transaction';
+                            submitBtn.style.backgroundColor = '';
+                        }, 2000);
+                    }, 1500);
+                });
+            }
+            
+            // Add pulse animation to icons
+            const icons = document.querySelectorAll('.explorer-title .icon');
+            icons.forEach(icon => {
+                icon.classList.add('icon-pulse');
+            });
+            
+            // Implement scroll reveal animations
+            const revealElements = document.querySelectorAll('.explorer-container, .transaction-item, .token-item');
+            revealElements.forEach(el => {
+                el.classList.add('reveal-fade');
+            });
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            revealElements.forEach(el => {
+                observer.observe(el);
+            });
+            
+            // Animate progress bars on scroll
+            const progressBars = document.querySelectorAll('.progress-fill');
+            progressBars.forEach(bar => {
+                const width = bar.style.width;
+                bar.style.width = '0';
+                
+                const progressObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            setTimeout(() => {
+                                bar.style.width = width;
+                            }, 300);
+                            progressObserver.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.1 });
+                
+                progressObserver.observe(bar.parentElement);
+            });
+            
+            // Add hover effects to TX elements
+            const txRows = document.querySelectorAll('.tx-row');
+            txRows.forEach(row => {
+                row.addEventListener('mouseenter', function() {
+                    row.style.backgroundColor = 'rgba(93, 79, 255, 0.05)';
+                    row.style.transition = 'background-color 0.3s ease';
+                });
+                
+                row.addEventListener('mouseleave', function() {
+                    row.style.backgroundColor = '';
+                });
+            });
+            
+            // Fix navigation highlighting
+            const navLinks = document.querySelectorAll('.explorer-nav ul li a');
+            const sections = document.querySelectorAll('section');
+            
+            // Function to update active navigation based on scroll position
+            function updateActiveNav() {
+                let currentSection = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    if (window.pageYOffset >= (sectionTop - 200)) {
+                        currentSection = section.getAttribute('id');
+                    }
+                });
+                
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${currentSection}`) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+            
+            // Update active nav on scroll
+            window.addEventListener('scroll', updateActiveNav);
+            
+            // Also update on initial load
+            updateActiveNav();
+            
+            // Handle navigation click
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetSection = document.querySelector(targetId);
+                    
+                    if (targetSection) {
+                        window.scrollTo({
+                            top: targetSection.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                        
+                        // Remove active class from all links
+                        navLinks.forEach(nav => nav.classList.remove('active'));
+                        
+                        // Add active class to clicked link
+                        this.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body class="custom-cursor">
+    <!-- Custom Cursor V2 -->
+    <div class="cursor-v2 cursor-outer" style="opacity: 1; z-index: 100000;"></div>
+    <div class="cursor-v2 cursor-inner" style="opacity: 1; z-index: 100001;"></div>
+
+    <!-- Welcome Overlay -->
+    <div class="welcome-overlay">
+        <div class="grid-background"></div>
+        <div class="blockchain-blocks" id="blockchain-blocks"></div>
+        <div class="floating-dots"></div>
+        <div class="welcome-content">
+            <div class="project-number-large">BLOCKCHAIN EXPLORER</div>
+            <h1 class="welcome-title">0xGajendra_Pal</h1>
+            <p class="welcome-subtitle">Scan block information, explore transaction history, and discover smart contracts of a professional Web3 developer.</p>
+            <button class="enter-btn" id="enter-btn">Enter</button>
+            <a href="#" class="enter-without-motion" id="enter-no-motion">Enter as Guest</a>
+        </div>
+        <div class="loading-bar">
+            <div class="loading-progress" id="loading-progress"></div>
+        </div>
+        <div class="loading-percentage">0%</div>
+        <div class="click-indicator" id="click-indicator">Click Enter to Continue</div>
+    </div>
+
+    <!-- Header (Block Explorer Style) -->
+    <header class="explorer-header-main">
+        <div class="container">
+            <div class="explorer-logo">
+                <a href="#" class="logo">
+                    <i class="fas fa-cube"></i> GP<span>Scan</span>
+                </a>
+            </div>
+            <div class="explorer-search">
+                <form class="search-form">
+                    <input type="text" placeholder="Search by Block / Transaction Hash / Address" class="search-input">
+                    <button type="submit" class="search-btn"><i class="fas fa-search"></i></button>
+                </form>
+            </div>
+            <div class="explorer-nav">
+                <ul>
+                    <li><a href="#home" class="active"><i class="fas fa-user-circle"></i> Profile</a></li>
+                    <li><a href="#blocks"><i class="fas fa-cubes"></i> Blocks</a></li>
+                    <li><a href="#transactions"><i class="fas fa-exchange-alt"></i> Transactions</a></li>
+                    <li><a href="#education"><i class="fas fa-graduation-cap"></i> Education</a></li>
+                    <li><a href="#contact"><i class="fas fa-paper-plane"></i> Contact</a></li>
+                </ul>
+            </div>
+            <div class="theme-toggle cursor-hover-trigger">
+                <i class="fas fa-moon"></i>
+            </div>
+            <div class="hamburger cursor-hover-trigger">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Network Stats Bar -->
+    <div class="network-stats">
+        <div class="container">
+            <div class="stat-item">
+                <span class="stat-label">Latest Block:</span>
+                <span class="stat-value">16249071</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Experience:</span>
+                <span class="stat-value">Senior Engineer</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Transactions:</span>
+                <span class="stat-value">150+</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Network:</span>
+                <span class="stat-value network-badge">Web3</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Current Organization:</span>
+                <span class="stat-value">Magpie</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="container main-content">
+        <!-- Overview Section: Block Summary -->
+        <section id="home" class="block-section">
+            <div class="section-header explorer-style">
+                <h2>Latest Profile Information</h2>
+                <div class="section-subtitle">View the most recent data about Gajendra Pal</div>
+            </div>
+
+            <!-- Profile Summary (Like a Latest Block) -->
+            <div class="explorer-container">
+                <div class="explorer-header">
+                    <div class="explorer-title">
+                        <i class="fas fa-id-card icon"></i>
+                        <h3>Profile Overview</h3>
+                    </div>
+                    <div class="block-info">
+                        <span class="block-number">BLK-2025</span>
+                        <span class="timestamp" id="current-timestamp">Loading timestamp...</span>
+                    </div>
+                </div>
+
+                <div class="profile-highlights">
+                    <!-- Name & Title (Like a Transaction) -->
+                    <div class="tx-row">
+                        <div class="tx-label">Name</div>
+                        <div class="tx-value">
+                            <span class="hash-id">0xGajendra_Pal</span>
+                        </div>
+                    </div>
+
+                    <!-- Role (Like a Contract) -->
+                    <div class="tx-row">
+                        <div class="tx-label">Role</div>
+                        <div class="tx-value">
+                            <span class="address">Senior Blockchain Engineer</span>
+                            <span class="tx-status success">VERIFIED</span>
+                        </div>
+                    </div>
+
+                    <!-- Specialization -->
+                    <div class="tx-row">
+                        <div class="tx-label">Specialization</div>
+                        <div class="tx-value">
+                            Smart Contracts, Cross-Chain DeFi, Web3 Backend, AWS, Node.js, Cloud Architecture
+                            <div class="gas-fee">Optimizing for gas efficiency and security</div>
+                        </div>
+                    </div>
+
+                    <!-- Current Project -->
+                    <div class="tx-row">
+                        <div class="tx-label">Current Project</div>
+                        <div class="tx-value">
+                            <span class="address">Eigenpie(Liquid Restaking Platform) & Hyperpie (Liquid Staking Platform, DEX and first ever MEME launchpad on Hyperliquid chain)</span>
+                            <span class="tx-status success">ACTIVE</span>
+                            <div class="gas-fee">$1.5B+ TVL managed, built on EigenLayer, Hyperliquid</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- About Section (Like a Smart Contract Details) -->
+            <div class="explorer-container">
+                <div class="explorer-header">
+                    <div class="explorer-title">
+                        <i class="fas fa-file-contract icon"></i>
+                        <h3>Profile Contract</h3>
+                    </div>
+                    <div class="contract-info">
+                        <span class="tx-status success">VERIFIED</span>
+                    </div>
+                </div>
+
+                <div class="contract-details">
+                    <div class="contract-code">
+                        <pre><code>/**
+ * @title GajendraPalProfile
+ * @dev Contract containing profile information
+ * @custom:security-contact gajendrahitz@gmail.com
+ */
+contract GajendraPalProfile {
+    address public owner = 0xGajendra_Pal;
+    
+    /** 
+     * @notice Professional summary
+     */
+    function getAboutMe() public pure returns (string memory) {
+        return "Software Engineer specialized in designing scalable backend services (Web2) and advanced decentralized applications (Web3). Extensive experience in developing robust smart contracts, full-stack dApps, SubDAOs, and cloud-native solutions. Successfully managed projects exceeding $1.5B TVL and delivered cross-chain solutions across Ethereum and Layer 2 ecosystems.";
+    }
+    
+    /**
+     * @notice Current position details
+     */
+    function getCurrentRole() public pure returns (string memory, string memory) {
+        return ("Senior Blockchain Engineer", "Magpie - Managing Eigenpie & Hyperpie, a Liquid Restaking Platform with over $1.5B TVL");
+    }
+    
+    /**
+     * @notice Areas of expertise
+     */
+    function getExpertiseAreas() public pure returns (string[] memory) {
+        string[] memory areas = new string[](5);
+        areas[0] = "Smart Contract Development (Solidity, Foundry, Hardhat)";
+        areas[1] = "Cross-Chain Solutions (LayerZero, CCIP)";
+        areas[2] = "Security Auditing & Best Practices";
+        areas[3] = "Full-Stack Web3 Development";
+        areas[4] = "The Graph Protocol & GraphQL Subgraphs";
+        return areas;
+    }
+    
+    /**
+     * @notice Education history
+     */
+    function getEducation() public pure returns (Education[] memory) {
+        Education[] memory education = new Education[](1);
+        education[0] = Education({
+            institution: "Punjab University, Chandigarh, India",
+            degree: "Bachelor of Engineering in Computer Science",
+            year: "Graduated",
+            achievements: "GPA: 8.36"
+        });
+        return education;
+    }
+    
+    /**
+     * @notice Previous work experience
+     */
+    function getPreviousExperience() public pure returns (Experience[] memory) {
+        Experience[] memory experience = new Experience[](1);
+        experience[0] = Experience({
+            company: "Magpie",
+            role: "Senior Blockchain Engineer",
+            period: "Nov 2023 - Present",
+            description: "Lead developer for Eigenpie, Hyperpie, & Cakepie. Managing $1.5B+ TVL, built on EigenLayer with cross-chain asset bridging using LayerZero. Developed core protocol smart contracts (vlEGP, vlStreamRewarders), governance modules, and reward distribution systems."
+        });
+        return experience;
+    }
+    
+    /**
+     * @notice Project details
+     */
+    function getProjectHashTable() public pure returns (bytes32[] memory) {
+        bytes32[] memory projectHashes = new bytes32[](5);
+        projectHashes[0] = 0x8e7a4f1b95d515d78eb845d9c5d1a880f0e6f42ef5b55bd15558c6c56aecf0db; // Eigenpie
+        projectHashes[1] = 0x1b5d4e8f0afedc3e4ef9c7856fb825d5c1a8e093aa9e7b68f1b91f6d77b09aca; // Hyperpie SubDAO
+        projectHashes[2] = 0x3f2e9a82b4c7ef4ac96c7de36c1bc7deb9cd7c7be5d6ab5e5e08618d2c4e31ea; // Blockchain Bidding War
+        projectHashes[3] = 0x5dbf8c7de36c1bc7deb9cd7c7be5d6ab5e5e08618d2c4e31ea3f2e9a82b4c7ef; // AI Zoom Bot
+        projectHashes[4] = 0x7fa9e8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7; // FlappyPy Game
+        return projectHashes;
+    }
+    
+    /**
+     * @notice Achievements
+     */
+    function getAchievements() public pure returns (string[] memory) {
+        string[] memory achievements = new string[](3);
+        achievements[0] = "LeetCode: Knight Badge, Top 5% globally";
+        achievements[1] = "Codeforces: Specialist (Rating: 1486)";
+        achievements[2] = "Open Source Contribution (Matplotlib): Fixed a critical triplot issue, incorporated from version 3.6.0+, benefiting 460k+ global users";
+        return achievements;
+    }
+    
+    // Struct definitions
+    struct Education {
+        string institution;
+        string degree;
+        string year;
+        string achievements;
+    }
+    
+    struct Experience {
+        string company;
+        string role;
+        string period;
+        string description;
+    }
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section (Like Token Holdings) -->
+        <section id="blocks" class="block-section">
+            <div class="section-header explorer-style">
+                <h2>Skills & Technologies</h2>
+                <div class="section-subtitle">Developer's skill tokens and technology assets</div>
+            </div>
+
+            <div class="explorer-container">
+                <div class="explorer-header">
+                    <div class="explorer-title">
+                        <i class="fas fa-layer-group icon"></i>
+                        <h3>Skill Token Holdings</h3>
+                    </div>
+                </div>
+
+                <div class="token-holdings">
+                    <!-- Blockchain Category -->
+                    <div class="token-category">
+                        <div class="category-header">
+                            <h4>Blockchain Development</h4>
+                        </div>
+                        <div class="token-list">
+                            <div class="token-item">
+                                <div class="token-icon"><i class="fab fa-ethereum"></i></div>
+                                <div class="token-details">
+                                    <div class="token-name">Solidity</div>
+                                    <div class="token-value">Expert</div>
+                                </div>
+                                <div class="token-percentage">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 95%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="token-item">
+                                <div class="token-icon"><i class="fas fa-code-branch"></i></div>
+                                <div class="token-details">
+                                    <div class="token-name">Foundry/Hardhat</div>
+                                    <div class="token-value">Expert</div>
+                                </div>
+                                <div class="token-percentage">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 90%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="token-item">
+                                <div class="token-icon"><i class="fas fa-link"></i></div>
+                                <div class="token-details">
+                                    <div class="token-name">LayerZero/CCIP</div>
+                                    <div class="token-value">Advanced</div>
+                                </div>
+                                <div class="token-percentage">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 88%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="token-item">
+                                <div class="token-icon"><i class="fas fa-shield-alt"></i></div>
+                                <div class="token-details">
+                                    <div class="token-name">Smart Contract Security</div>
+                                    <div class="token-value">Expert</div>
+                                </div>
+                                <div class="token-percentage">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 92%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="token-item">
+                                <div class="token-icon"><i class="fas fa-cubes"></i></div>
+                                <div class="token-details">
+                                    <div class="token-name">The Graph Protocol</div>
+                                    <div class="token-value">Advanced</div>
+                                </div>
+                                <div class="token-percentage">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 85%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="token-item">
+                                <div class="token-icon"><i class="fas fa-network-wired"></i></div>
+                                <div class="token-details">
+                                    <div class="token-name">EigenLayer & Restaking</div>
+                                    <div class="token-value">Expert</div>
+                                </div>
+                                <div class="token-percentage">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 90%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="token-item">
+                                <div class="token-icon"><i class="fas fa-file-contract"></i></div>
+                                <div class="token-details">
+                                    <div class="token-name">SubDAOs & Governance</div>
+                                    <div class="token-value">Expert</div>
+                                </div>
+                                <div class="token-percentage">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 92%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Frontend Category -->
+                    <div class="token-category">
+                        <div class="category-header">
+                            <h4>Frontend Development</h4>
+                        </div>
+                        <div class="token-list">
+                            <div class="token-item">
+                                <div class="token-icon"><i class="fab fa-react"></i></div>
+                                <div class="token-details">
+                                    <div class="token-name">React</div>
+                                    <div class="token-value">Advanced</div>
+                                </div>
+                                <div class="token-percentage">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 85%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="token-item">
+                                <div class="token-icon"><i class="fab fa-js"></i></div>
+                                <div class="token-details">
+                                    <div class="token-name">TypeScript</div>
+                                    <div class="token-value">Advanced</div>
+                                </div>
+                                <div class="token-percentage">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 82%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="token-item">
+                                <div class="token-icon"><i class="fab fa-html5"></i></div>
+                                <div class="token-details">
+                                    <div class="token-name">HTML5/CSS3</div>
+                                    <div class="token-value">Expert</div>
+                                </div>
+                                <div class="token-percentage">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 90%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="token-item">
+                                <div class="token-icon"><i class="fab fa-js-square"></i></div>
+                                <div class="token-details">
+                                    <div class="token-name">Next.js</div>
+                                    <div class="token-value">Advanced</div>
+                                </div>
+                                <div class="token-percentage">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 80%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Backend Category -->
+                    <div class="token-category">
+                        <div class="category-header">
+                            <h4>Backend & Infrastructure</h4>
+                        </div>
+                        <div class="token-list">
+                            <div class="token-item">
+                                <div class="token-icon"><i class="fab fa-node-js"></i></div>
+                                <div class="token-details">
+                                    <div class="token-name">Node.js</div>
+                                    <div class="token-value">Expert</div>
+                                </div>
+                                <div class="token-percentage">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 88%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="token-item">
+                                <div class="token-icon"><i class="fab fa-aws"></i></div>
+                                <div class="token-details">
+                                    <div class="token-name">AWS</div>
+                                    <div class="token-value">Advanced</div>
+                                </div>
+                                <div class="token-percentage">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 80%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="token-item">
+                                <div class="token-icon"><i class="fas fa-database"></i></div>
+                                <div class="token-details">
+                                    <div class="token-name">Databases</div>
+                                    <div class="token-value">Advanced</div>
+                                </div>
+                                <div class="token-percentage">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 85%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="token-item">
+                                <div class="token-icon"><i class="fab fa-docker"></i></div>
+                                <div class="token-details">
+                                    <div class="token-name">Docker/Kubernetes</div>
+                                    <div class="token-value">Advanced</div>
+                                </div>
+                                <div class="token-percentage">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 78%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="token-item">
+                                <div class="token-icon"><i class="fas fa-cloud"></i></div>
+                                <div class="token-details">
+                                    <div class="token-name">Microservices</div>
+                                    <div class="token-value">Advanced</div>
+                                </div>
+                                <div class="token-percentage">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 82%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Additional Category: Programming Languages -->
+                    <div class="token-category">
+                        <div class="category-header">
+                            <h4>Programming Languages</h4>
+                        </div>
+                        <div class="token-list">
+                            <div class="token-item">
+                                <div class="token-icon"><i class="fab fa-js"></i></div>
+                                <div class="token-details">
+                                    <div class="token-name">JavaScript</div>
+                                    <div class="token-value">Expert</div>
+                                </div>
+                                <div class="token-percentage">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 95%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="token-item">
+                                <div class="token-icon"><i class="fab fa-python"></i></div>
+                                <div class="token-details">
+                                    <div class="token-name">Python</div>
+                                    <div class="token-value">Advanced</div>
+                                </div>
+                                <div class="token-percentage">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 85%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="token-item">
+                                <div class="token-icon"><i class="fas fa-code"></i></div>
+                                <div class="token-details">
+                                    <div class="token-name">Rust</div>
+                                    <div class="token-value">Intermediate</div>
+                                </div>
+                                <div class="token-percentage">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 65%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="token-item">
+                                <div class="token-icon"><i class="fas fa-code"></i></div>
+                                <div class="token-details">
+                                    <div class="token-name">Go</div>
+                                    <div class="token-value">Intermediate</div>
+                                </div>
+                                <div class="token-percentage">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 60%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section (Like Transactions) -->
+        <section id="transactions" class="block-section">
+            <div class="section-header explorer-style">
+                <h2>Project Transactions</h2>
+                <div class="section-subtitle">View projects and contributions in chronological order</div>
+            </div>
+
+            <div class="explorer-container">
+                <div class="explorer-header">
+                    <div class="explorer-title">
+                        <i class="fas fa-exchange-alt icon"></i>
+                        <h3>Latest Transactions</h3>
+                    </div>
+                </div>
+
+                <div class="transaction-list">
+                    <!-- Eigenpie Project -->
+                    <div class="transaction-item">
+                        <div class="tx-hash">
+                            <i class="fas fa-exchange-alt"></i>
+                            <span class="hash-id">0x8e7a4f1b95d515d78eb845d9c5d1a880f0e6f42ef5b55bd15558c6c56aecf0db</span>
+                        </div>
+                        <div class="tx-details">
+                            <div class="tx-title">
+                                Eigenpie (Liquid Restaking Platform)
+                                <span class="tx-status success">ACTIVE</span>
+                                <a href="https://www.eigenlayer.magpiexyz.io/restake" target="_blank" class="project-link"><i class="fas fa-external-link-alt"></i></a>
+                            </div>
+                            <div class="tx-info">
+                                <div class="tx-from-to">
+                                    <div class="tx-from">
+                                        <span class="label">Role:</span>
+                                        <span class="address">Lead Developer</span>
+                                    </div>
+                                    <div class="tx-arrow"><i class="fas fa-arrow-right"></i></div>
+                                    <div class="tx-to">
+                                        <span class="label">Project:</span>
+                                        <span class="address">Magpie</span>
+                                    </div>
+                                </div>
+                                <div class="tx-meta">
+                                    <div class="tx-timestamp">
+                                        <i class="far fa-clock"></i> 2023 Q4 - Present
+                                    </div>
+                                    <div class="tx-gas">
+                                        <span class="gas-fee">$1.5B+ TVL Secured</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tx-description">
+                                Lead developer for Eigenpie (Liquid Restaking Platform), managing $1.5B+ TVL, built on EigenLayer with cross-chain asset bridging using LayerZero. Developed core protocol smart contracts (vlEGP, vlStreamRewarders), governance modules, and reward distribution systems.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hyperpie SubDAO Project -->
+                    <div class="transaction-item">
+                        <div class="tx-hash">
+                            <i class="fas fa-exchange-alt"></i>
+                            <span class="hash-id">0x1b5d4e8f0afedc3e4ef9c7856fb825d5c1a8e093aa9e7b68f1b91f6d77b09aca</span>
+                        </div>
+                        <div class="tx-details">
+                            <div class="tx-title">
+                                Hyperpie SubDAO Ecosystem
+                                <span class="tx-status success">ACTIVE</span>
+                                <a href="https://www.hyperliquid.magpiexyz.io/stake" target="_blank" class="project-link"><i class="fas fa-external-link-alt"></i></a>
+                            </div>
+                            <div class="tx-info">
+                                <div class="tx-from-to">
+                                    <div class="tx-from">
+                                        <span class="label">Role:</span>
+                                        <span class="address">Architect & Lead Developer</span>
+                                    </div>
+                                    <div class="tx-arrow"><i class="fas fa-arrow-right"></i></div>
+                                    <div class="tx-to">
+                                        <span class="label">Project:</span>
+                                        <span class="address">Magpie/Hyperliquid Chain</span>
+                                    </div>
+                                </div>
+                                <div class="tx-meta">
+                                    <div class="tx-timestamp">
+                                        <i class="far fa-clock"></i> 2024 Q3 - Present
+                                    </div>
+                                    <div class="tx-gas">
+                                        <span class="gas-fee">$3M+ Raised in First Week</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tx-description">
+                                Architected the Hyperpie SubDAO ecosystem on Hyperliquid Chain, comprising a Liquid Staking Platform, MEME Launchpad, and MEME DEX. Successfully launched with $2M+ raised within a week of launch. Engineered GraphQL subgraphs for data analytics.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Blockchain Bidding War Game -->
+                    <div class="transaction-item">
+                        <div class="tx-hash">
+                            <i class="fas fa-exchange-alt"></i>
+                            <span class="hash-id">0x3f2e9a82b4c7ef4ac96c7de36c1bc7deb9cd7c7be5d6ab5e5e08618d2c4e31ea</span>
+                        </div>
+                        <div class="tx-details">
+                            <div class="tx-title">
+                                Blockchain Bidding War Game
+                                <span class="tx-status success">COMPLETED</span>
+                                <a href="https://github.com/gajendra0180/BLockchain-Bidding-War-Game" target="_blank" class="project-link"><i class="fas fa-external-link-alt"></i></a>
+                            </div>
+                            <div class="tx-info">
+                                <div class="tx-from-to">
+                                    <div class="tx-from">
+                                        <span class="label">Role:</span>
+                                        <span class="address">Developer</span>
+                                    </div>
+                                    <div class="tx-arrow"><i class="fas fa-arrow-right"></i></div>
+                                    <div class="tx-to">
+                                        <span class="label">Technology:</span>
+                                        <span class="address">Solidity, Node.js</span>
+                                    </div>
+                                </div>
+                                <div class="tx-meta">
+                                    <div class="tx-timestamp">
+                                        <i class="far fa-clock"></i> 2023
+                                    </div>
+                                    <div class="tx-gas">
+                                        <span class="gas-fee">Energi Testnet</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tx-description">
+                                Solidity-based decentralized competitive bidding game deployed on Energi Testnet, featuring automated Node.js backend integrations. Implemented smart contract-based auction mechanics with secure token handling.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- AI Zoom Bot -->
+                    <div class="transaction-item">
+                        <div class="tx-hash">
+                            <i class="fas fa-exchange-alt"></i>
+                            <span class="hash-id">0x5dbf8c7de36c1bc7deb9cd7c7be5d6ab5e5e08618d2c4e31ea3f2e9a82b4c7ef</span>
+                        </div>
+                        <div class="tx-details">
+                            <div class="tx-title">
+                                AI Zoom Bot
+                                <span class="tx-status success">COMPLETED</span>
+                                <a href="https://github.com/gajendra0180/AI-Bot-For-Zoom/tree/zoom-GPT-Integration" target="_blank" class="project-link"><i class="fas fa-external-link-alt"></i></a>
+                            </div>
+                            <div class="tx-info">
+                                <div class="tx-from-to">
+                                    <div class="tx-from">
+                                        <span class="label">Role:</span>
+                                        <span class="address">Developer</span>
+                                    </div>
+                                    <div class="tx-arrow"><i class="fas fa-arrow-right"></i></div>
+                                    <div class="tx-to">
+                                        <span class="label">Technology:</span>
+                                        <span class="address">Node.js, GPT</span>
+                                    </div>
+                                </div>
+                                <div class="tx-meta">
+                                    <div class="tx-timestamp">
+                                        <i class="far fa-clock"></i> 2023
+                                    </div>
+                                    <div class="tx-gas">
+                                        <span class="gas-fee">AI Integration</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tx-description">
+                                Developed Node.js bot integrated with GPT for live AI-driven conversations in Zoom meetings using speech recognition and synthesis. Created seamless interaction between meeting participants and AI assistant.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- FlappyPy Game -->
+                    <div class="transaction-item">
+                        <div class="tx-hash">
+                            <i class="fas fa-exchange-alt"></i>
+                            <span class="hash-id">0x7fa9e8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7</span>
+                        </div>
+                        <div class="tx-details">
+                            <div class="tx-title">
+                                FlappyPy Game
+                                <span class="tx-status success">COMPLETED</span>
+                                <a href="https://github.com/gajendra0180/FlappyPy---Flappy-Bird-Game-in-Python" target="_blank" class="project-link"><i class="fas fa-external-link-alt"></i></a>
+                            </div>
+                            <div class="tx-info">
+                                <div class="tx-from-to">
+                                    <div class="tx-from">
+                                        <span class="label">Role:</span>
+                                        <span class="address">Developer</span>
+                                    </div>
+                                    <div class="tx-arrow"><i class="fas fa-arrow-right"></i></div>
+                                    <div class="tx-to">
+                                        <span class="label">Technology:</span>
+                                        <span class="address">Python, Pygame</span>
+                                    </div>
+                                </div>
+                                <div class="tx-meta">
+                                    <div class="tx-timestamp">
+                                        <i class="far fa-clock"></i> 2021
+                                    </div>
+                                    <div class="tx-gas">
+                                        <span class="gas-fee">Game Development</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tx-description">
+                                Developed a fully functional arcade-style Flappy Bird game demonstrating effective collision detection, interactive gameplay, and simplified local environment setup using Python and Pygame.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section (Like Contract Interaction) -->
+        <section id="contact" class="block-section">
+            <div class="section-header explorer-style">
+                <h2>Contact Interface</h2>
+                <div class="section-subtitle">Interact with this smart contract to get in touch</div>
+            </div>
+
+            <div class="explorer-container">
+                <div class="explorer-header">
+                    <div class="explorer-title">
+                        <i class="fas fa-paper-plane icon"></i>
+                        <h3>Contract Interaction</h3>
+                    </div>
+                    <div class="block-info">
+                        <span class="tx-status pending">Ready to Execute</span>
+                    </div>
+                </div>
+
+                <div class="contract-interaction">
+                    <div class="interaction-method">
+                        <div class="method-name">sendMessage(string name, string email, string subject, string message)</div>
+                        <div class="method-description">Send a message to contact Gajendra Pal</div>
+                    </div>
+
+                    <div class="method-instructions">
+                        <p>To use this function, simply fill out the form below with your name, email, subject, and message. Once you click "Execute Transaction", your message will be securely sent to Gajendra's inbox. You will receive a confirmation notification upon successful delivery.</p>
+                    </div>
+
+                    <div class="interaction-form">
+                        <form id="contactForm" class="reveal-text">
+                            <div class="form-group">
+                                <label>name (string)</label>
+                                <input type="text" id="name" name="name" placeholder="Your Name" required class="cursor-hover-trigger">
+                            </div>
+                            <div class="form-group">
+                                <label>email (string)</label>
+                                <input type="email" id="email" name="email" placeholder="Your Email" required class="cursor-hover-trigger">
+                            </div>
+                            <div class="form-group">
+                                <label>subject (string)</label>
+                                <input type="text" id="subject" name="subject" placeholder="Subject" required class="cursor-hover-trigger">
+                            </div>
+                            <div class="form-group">
+                                <label>message (string)</label>
+                                <textarea id="message" name="message" placeholder="Your Message" required class="cursor-hover-trigger"></textarea>
+                            </div>
+                            <div class="gas-limit-wrapper">
+                                <div class="gas-limit">
+                                    <span>Estimated Gas:</span>
+                                    <span class="gas-value">21,000</span>
+                                </div>
+                            </div>
+                            <button type="submit" class="execute-btn cursor-hover-trigger">Execute Transaction</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="explorer-container">
+                <div class="explorer-header">
+                    <div class="explorer-title">
+                        <i class="fas fa-address-card icon"></i>
+                        <h3>Contact Addresses</h3>
+                    </div>
+                </div>
+
+                <div class="contact-addresses">
+                    <div class="tx-row">
+                        <div class="tx-label">Email</div>
+                        <div class="tx-value">
+                            <span class="address">gajendrahitz@gmail.com</span>
+                        </div>
+                    </div>
+                    <div class="tx-row">
+                        <div class="tx-label">LinkedIn</div>
+                        <div class="tx-value">
+                            <a href="https://www.linkedin.com/in/gajendra0180/" target="_blank" class="address">linkedin.com/in/gajendra0180</a>
+                        </div>
+                    </div>
+                    <div class="tx-row">
+                        <div class="tx-label">GitHub</div>
+                        <div class="tx-value">
+                            <a href="https://github.com/gajendra0180" target="_blank" class="address">github.com/gajendra0180</a>
+                        </div>
+                    </div>
+                    <div class="tx-row">
+                        <div class="tx-label">Twitter</div>
+                        <div class="tx-value">
+                            <a href="https://twitter.com/gajendra0180" target="_blank" class="address">twitter.com/gajendra0180</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Education Section (like Transaction History) -->
+        <section id="education" class="block-section">
+            <div class="section-header explorer-style">
+                <h2>Education Blocks</h2>
+                <div class="section-subtitle">Academic history and credentials</div>
+            </div>
+
+            <div class="explorer-container">
+                <div class="explorer-header">
+                    <div class="explorer-title">
+                        <i class="fas fa-graduation-cap icon"></i>
+                        <h3>Education History</h3>
+                    </div>
+                </div>
+
+                <div class="transaction-list">
+                    <div class="transaction-item">
+                        <div class="tx-hash">
+                            <i class="fas fa-university"></i>
+                            <span class="hash-id">0xed4c82b4c7ef4ac96c7de36c1bc7deb9cd7c7be5d6ab5e5e08618d2c4e31ea3f</span>
+                        </div>
+                        <div class="tx-details">
+                            <div class="tx-title">
+                                Punjab University, Chandigarh, India
+                                <span class="tx-status success">GRADUATED</span>
+                            </div>
+                            <div class="tx-info">
+                                <div class="tx-from-to">
+                                    <div class="tx-from">
+                                        <span class="label">Degree:</span>
+                                        <span class="address">Bachelor of Engineering in Computer Science</span>
+                                    </div>
+                                </div>
+                                <div class="tx-meta">
+                                    <div class="tx-gas">
+                                        <span class="gas-fee">GPA: 8.36</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Achievements Section -->
+        <section id="achievements" class="block-section">
+            <div class="section-header explorer-style">
+                <h2>Achievements</h2>
+                <div class="section-subtitle">Notable accomplishments and recognitions</div>
+            </div>
+
+            <div class="explorer-container">
+                <div class="explorer-header">
+                    <div class="explorer-title">
+                        <i class="fas fa-trophy icon"></i>
+                        <h3>Achievement Records</h3>
+                    </div>
+                </div>
+
+                <div class="transaction-list">
+                    <div class="transaction-item">
+                        <div class="tx-hash">
+                            <i class="fas fa-code"></i>
+                            <span class="hash-id">0xa1b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3</span>
+                        </div>
+                        <div class="tx-details">
+                            <div class="tx-title">
+                                LeetCode
+                                <span class="tx-status success">VERIFIED</span>
+                            </div>
+                            <div class="tx-description">
+                                Knight Badge, Top 5% globally. Consistently solved complex algorithmic challenges and data structure problems.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="transaction-item">
+                        <div class="tx-hash">
+                            <i class="fas fa-code-branch"></i>
+                            <span class="hash-id">0xb2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3</span>
+                        </div>
+                        <div class="tx-details">
+                            <div class="tx-title">
+                                Codeforces
+                                <span class="tx-status success">VERIFIED</span>
+                            </div>
+                            <div class="tx-description">
+                                Specialist (Rating: 1486). Regular participant in competitive programming contests with consistent performance.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="transaction-item">
+                        <div class="tx-hash">
+                            <i class="fas fa-code-commit"></i>
+                            <span class="hash-id">0xc3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4</span>
+                        </div>
+                        <div class="tx-details">
+                            <div class="tx-title">
+                                Open Source Contribution (Matplotlib)
+                                <span class="tx-status success">MERGED</span>
+                                <a href="https://github.com/matplotlib/matplotlib/pull/20562" target="_blank" class="project-link"><i class="fas fa-external-link-alt"></i></a>
+                            </div>
+                            <div class="tx-description">
+                                Fixed a critical triplot issue, incorporated from version 3.6.0+, benefiting 460k+ global users.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="explorer-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <i class="fas fa-cube"></i> GP<span>Scan</span>
+                </div>
+                <div class="footer-info">
+                    <div class="footer-stats">
+                        <div class="stat-item">
+                            <span class="stat-label">Blocks</span>
+                            <span class="stat-value">16249071</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Transactions</span>
+                            <span class="stat-value">150+</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Gas Price</span>
+                            <span class="stat-value">2+ Years Exp</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-social">
+                    <a href="https://www.linkedin.com/in/gajendra0180/" target="_blank" class="cursor-hover-trigger"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://github.com/gajendra0180" target="_blank" class="cursor-hover-trigger"><i class="fab fa-github"></i></a>
+                    <a href="https://twitter.com/gajendra0180" target="_blank" class="cursor-hover-trigger"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 0xGajendra_Pal. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Script Tags -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html> 
