@@ -810,48 +810,262 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05) !important;
             border: 1px solid #e9ecef !important;
         }
+        
+        /* Syntax Highlighting Styles for Solidity Code */
+        .contract-code pre code .comment {
+            color: #6a9955;
+            font-style: italic;
+        }
+        
+        .contract-code pre code .keyword {
+            color: #569cd6;
+            font-weight: bold;
+        }
+        
+        .contract-code pre code .type {
+            color: #4ec9b0;
+            font-weight: 600;
+        }
+        
+        .contract-code pre code .string {
+            color: #ce9178;
+        }
+        
+        .contract-code pre code .number {
+            color: #b5cea8;
+        }
+        
+        .contract-code pre code .function-name {
+            color: #dcdcaa;
+            font-weight: 600;
+        }
+        
+        .contract-code pre code .modifier {
+            color: #c586c0;
+            font-weight: 600;
+        }
+        
+        .contract-code pre code .operator {
+            color: #d4d4d4;
+        }
+        
+        .contract-code pre code .bracket {
+            color: #ffd700;
+        }
+        
+        .contract-code pre code .address-hex {
+            color: #ff6b6b;
+            font-weight: 600;
+        }
+        
+        /* Light mode syntax highlighting */
+        body.light-mode .contract-code pre code .comment {
+            color: #008000;
+            font-style: italic;
+        }
+        
+        body.light-mode .contract-code pre code .keyword {
+            color: #0000ff;
+            font-weight: bold;
+        }
+        
+        body.light-mode .contract-code pre code .type {
+            color: #267f99;
+            font-weight: 600;
+        }
+        
+        body.light-mode .contract-code pre code .string {
+            color: #a31515;
+        }
+        
+        body.light-mode .contract-code pre code .number {
+            color: #098658;
+        }
+        
+        body.light-mode .contract-code pre code .function-name {
+            color: #795e26;
+            font-weight: 600;
+        }
+        
+        body.light-mode .contract-code pre code .modifier {
+            color: #af00db;
+            font-weight: 600;
+        }
+        
+        body.light-mode .contract-code pre code .operator {
+            color: #000000;
+        }
+        
+        body.light-mode .contract-code pre code .bracket {
+            color: #0431fa;
+        }
+        
+        body.light-mode .contract-code pre code .address-hex {
+            color: #e31c1c;
+            font-weight: 600;
+        }
+        
+        /* Profile Avatar Styles */
+        .profile-content {
+            display: flex;
+            gap: 30px;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+        
+        .profile-avatar {
+            position: relative;
+            flex-shrink: 0;
+        }
+        
+        .avatar-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 12px;
+            border: 3px solid #5d4fff;
+            box-shadow: 0 8px 25px rgba(93, 79, 255, 0.3);
+            transition: all 0.3s ease;
+            image-rendering: pixelated;
+            image-rendering: -moz-crisp-edges;
+            image-rendering: crisp-edges;
+            object-fit: contain;
+            object-position: center;
+            background: rgba(20, 30, 60, 0.3);
+        }
+        
+        .avatar-image:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 30px rgba(93, 79, 255, 0.4);
+        }
+        
+        .avatar-status {
+            position: absolute;
+            bottom: -5px;
+            right: -5px;
+            background: rgba(20, 30, 60, 0.9);
+            border: 2px solid #5d4fff;
+            border-radius: 20px;
+            padding: 4px 10px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .status-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #28a745;
+            animation: pulse 2s infinite;
+        }
+        
+        .status-text {
+            font-size: 10px;
+            font-weight: 600;
+            color: #28a745;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .profile-highlights {
+            flex: 1;
+        }
+        
+        /* Light mode avatar styles */
+        body.light-mode .avatar-status {
+            background: rgba(255, 255, 255, 0.9);
+            border-color: #5d4fff;
+        }
+        
+        body.light-mode .status-text {
+            color: #28a745;
+        }
+        
+        body.light-mode .avatar-image {
+            background: rgba(255, 255, 255, 0.8);
+        }
+        
+        /* Header Avatar */
+        .header-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            border: 2px solid #5d4fff;
+            margin-right: 10px;
+            image-rendering: pixelated;
+            image-rendering: -moz-crisp-edges;
+            image-rendering: crisp-edges;
+            object-fit: contain;
+            object-position: center;
+            background: rgba(20, 30, 60, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .header-avatar:hover {
+            transform: scale(1.1);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        /* Responsive design for mobile */
+        @media (max-width: 768px) {
+            .profile-content {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                gap: 20px;
+            }
+            
+            .avatar-image {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .profile-highlights {
+                width: 100%;
+            }
+        }
     </style>
     <script>
-        // Simple cursor implementation
+        // Global variable to track if user has clicked
+        window.userHasClickedEnter = false;
+
         document.addEventListener('DOMContentLoaded', function() {
-            // CRITICAL: Force overlay to be visible
-            const overlay = document.querySelector('.welcome-overlay');
+            console.log("DOMContentLoaded fired");
             
-            // Check if we should show the welcome screen
-            // Only hide if the user has explicitly clicked enter
-            if (localStorage.getItem('userEnteredSite') !== 'true') {
-                overlay.style.opacity = '1';
-                overlay.style.display = 'flex';
-                overlay.style.visibility = 'visible';
+            // Separate core welcome overlay functionality 
+            // from the rest of the page to avoid interference
+            function setupWelcomeOverlay() {
+                // Get overlay reference
+                const welcomeOverlay = document.querySelector('.welcome-overlay');
                 
-                // Clear any potential auto-hiding or timeouts
-                window.clearTimeout(window._overlayTimeout);
+                // Force display of welcome overlay
+                welcomeOverlay.style.display = 'flex';
+                welcomeOverlay.style.opacity = '1';
+                welcomeOverlay.style.visibility = 'visible';
                 
-                // Create cursor element dynamically
-                const cursor = document.createElement('div');
-                cursor.className = 'bitcoin-cursor';
-                document.body.appendChild(cursor);
-                
-                // Handle cursor movement
-                document.addEventListener('mousemove', function(e) {
-                    // Apply positioning using requestAnimationFrame for smoother movement
-                    requestAnimationFrame(function() {
-                        cursor.style.left = (e.clientX - 15) + 'px';
-                        cursor.style.top = (e.clientY - 15) + 'px';
-                    });
-                });
-                
-                // Hide cursor when leaving window
-                document.addEventListener('mouseout', function(e) {
-                    if (!e.relatedTarget) {
-                        cursor.style.display = 'none';
+                // Prevent any auto-hiding with an interval check
+                const overlayChecker = setInterval(function() {
+                    if (!window.userHasClickedEnter && welcomeOverlay.style.display !== 'flex') {
+                        console.log("Forcing welcome overlay back to visible");
+                        welcomeOverlay.style.display = 'flex';
+                        welcomeOverlay.style.opacity = '1';
+                        welcomeOverlay.style.visibility = 'visible';
                     }
-                });
-                
-                // Show cursor when entering window
-                document.addEventListener('mouseover', function() {
-                    cursor.style.display = 'block';
-                });
+                    
+                    if (window.userHasClickedEnter) {
+                        clearInterval(overlayChecker);
+                    }
+                }, 100);
                 
                 // Create blockchain blocks for welcome overlay
                 const blocksContainer = document.getElementById('blockchain-blocks');
@@ -883,137 +1097,235 @@
                 
                 // Create floating dots for welcome overlay
                 const dotsContainer = document.querySelector('.floating-dots');
-                
-                // Add dots
-                for (let i = 0; i < 30; i++) {
-                    const dot = document.createElement('div');
-                    dot.className = 'dot';
-                    dot.style.left = `${Math.random() * 100}%`;
-                    dot.style.animationDuration = `${Math.random() * 10 + 5}s`;
-                    dot.style.animationDelay = `${Math.random() * 5}s`;
-                    dotsContainer.appendChild(dot);
+                if (dotsContainer) {
+                    // Add dots
+                    for (let i = 0; i < 30; i++) {
+                        const dot = document.createElement('div');
+                        dot.className = 'dot';
+                        dot.style.left = `${Math.random() * 100}%`;
+                        dot.style.animationDuration = `${Math.random() * 10 + 5}s`;
+                        dot.style.animationDelay = `${Math.random() * 5}s`;
+                        dotsContainer.appendChild(dot);
+                    }
                 }
                 
-                // Handle welcome overlay loading - wait for explicit user action
+                // Handle loading simulation
                 const enterBtn = document.getElementById('enter-btn');
-                const enterNoMotion = document.getElementById('enter-no-motion');
                 const loadingPercentage = document.querySelector('.loading-percentage');
                 const loadingProgress = document.getElementById('loading-progress');
+                const clickIndicator = document.getElementById('click-indicator');
                 
-                // Disable enter button until loading completes
+                // Disable enter button initially
                 if (enterBtn) {
                     enterBtn.disabled = true;
-                }
-                
-                // Simulate loading percentage
-                let percentage = 0;
-                const loadingInterval = setInterval(() => {
-                    percentage += Math.floor(Math.random() * 5) + 1;
-                    if (percentage > 100) percentage = 100;
                     
-                    loadingPercentage.textContent = `${percentage}%`;
-                    loadingProgress.style.width = `${percentage}%`;
-                    
-                    if (percentage === 100) {
-                        clearInterval(loadingInterval);
-                        
-                        // Enable enter button
-                        enterBtn.disabled = false;
-                        enterBtn.classList.add('ready');
-                        
-                        // Pulse animation for the Enter button
-                        enterBtn.style.animation = 'pulse 1.5s infinite';
-                        
-                        // Update loading percentage color
-                        loadingPercentage.style.color = '#5d4fff';
-                        
-                        // Show the click indicator
-                        const clickIndicator = document.getElementById('click-indicator');
-                        if (clickIndicator) {
-                            clickIndicator.classList.add('visible');
-                        }
-                    }
-                    // CRITICAL: Never auto-enter
-                }, 100);
-                
-                // ONLY enter when explicitly clicked
-                if (enterBtn) {
+                    // CRITICAL: The ONLY way to enter the site is clicking this button
                     enterBtn.addEventListener('click', function() {
                         if (!enterBtn.disabled) {
-                            // Set flag that user has entered
-                            localStorage.setItem('userEnteredSite', 'true');
+                            console.log("User clicked enter button");
+                            window.userHasClickedEnter = true;
                             
-                            // Hide overlay
-                            overlay.style.opacity = '0';
+                            // Fade out then hide
+                            welcomeOverlay.style.opacity = '0';
                             setTimeout(() => {
-                                overlay.style.display = 'none';
+                                welcomeOverlay.style.display = 'none';
                             }, 600);
                         }
                     });
                 }
                 
-                // ONLY enter when explicitly clicked
-                if (enterNoMotion) {
-                    enterNoMotion.addEventListener('click', function(e) {
-                        e.preventDefault();
+                // Simulate loading
+                let percentage = 0;
+                const loadingInterval = setInterval(() => {
+                    // Update percentage
+                    percentage += Math.floor(Math.random() * 5) + 1;
+                    if (percentage > 100) percentage = 100;
+                    
+                    // Update UI
+                    if (loadingPercentage) {
+                        loadingPercentage.textContent = `${percentage}%`;
+                    }
+                    
+                    if (loadingProgress) {
+                        loadingProgress.style.width = `${percentage}%`;
+                    }
+                    
+                    // Handle completion
+                    if (percentage === 100) {
+                        clearInterval(loadingInterval);
                         
-                        // Set flag that user has entered
-                        localStorage.setItem('userEnteredSite', 'true');
+                        if (enterBtn) {
+                            enterBtn.disabled = false;
+                            enterBtn.classList.add('ready');
+                            enterBtn.style.animation = 'pulse 1.5s infinite';
+                        }
                         
-                        // Hide overlay immediately
-                        overlay.style.display = 'none';
-                    });
-                }
-            } else {
-                // User has already entered, hide overlay immediately
-                overlay.style.display = 'none';
+                        if (loadingPercentage) {
+                            loadingPercentage.style.color = '#5d4fff';
+                        }
+                        
+                        if (clickIndicator) {
+                            clickIndicator.classList.add('visible');
+                        }
+                    }
+                }, 100);
             }
+            
+            // Set up the welcome overlay first
+            setupWelcomeOverlay();
+            
+            // Create cursor element dynamically
+            const cursor = document.createElement('div');
+            cursor.className = 'bitcoin-cursor';
+            document.body.appendChild(cursor);
+            
+            // Handle cursor movement
+            document.addEventListener('mousemove', function(e) {
+                // Apply positioning using requestAnimationFrame for smoother movement
+                requestAnimationFrame(function() {
+                    cursor.style.left = (e.clientX - 15) + 'px';
+                    cursor.style.top = (e.clientY - 15) + 'px';
+                });
+            });
+            
+            // Hide cursor when leaving window
+            document.addEventListener('mouseout', function(e) {
+                if (!e.relatedTarget) {
+                    cursor.style.display = 'none';
+                }
+            });
+            
+            // Show cursor when entering window
+            document.addEventListener('mouseover', function() {
+                cursor.style.display = 'block';
+            });
             
             // Apply syntax highlighting to contract code
             const applyCodeSyntaxHighlighting = () => {
                 const codeElement = document.querySelector('.contract-code pre code');
-                if (codeElement) {
-                    let content = codeElement.innerHTML;
+                if (codeElement && !codeElement.hasAttribute('data-highlighted')) {
+                    console.log('Applying syntax highlighting using DOM manipulation...');
                     
-                    // Apply syntax highlighting with regex replacements
-                    // Comments
-                    content = content.replace(
-                        /(\/\*\*[\s\S]*?\*\/|\/\/.*)/g, 
-                        '<span class="comment">$1</span>'
-                    );
+                    // Get the raw text content
+                    const originalText = codeElement.textContent;
+                    console.log('Original text length:', originalText.length);
                     
-                    // Keywords
-                    const keywords = ['contract', 'function', 'public', 'private', 'pure', 'view', 'memory', 'returns', 'return', 'struct', 'if', 'else', 'for', 'while'];
-                    keywords.forEach(keyword => {
-                        const regex = new RegExp(`\\b(${keyword})\\b`, 'g');
-                        content = content.replace(regex, '<span class="keyword">$1</span>');
+                    // Clear the element
+                    codeElement.innerHTML = '';
+                    
+                    // Split by lines for easier processing
+                    const lines = originalText.split('\n');
+                    
+                    lines.forEach((line, lineIndex) => {
+                        if (lineIndex > 0) {
+                            codeElement.appendChild(document.createTextNode('\n'));
+                        }
+                        
+                        // Process each line character by character to build highlighted content
+                        let currentPos = 0;
+                        const lineLength = line.length;
+                        
+                        while (currentPos < lineLength) {
+                            let matched = false;
+                            
+                            // Check for comments
+                            if (line.substr(currentPos).match(/^(\/\*[\s\S]*?\*\/|\/\/.*)/)) {
+                                const match = line.substr(currentPos).match(/^(\/\*[\s\S]*?\*\/|\/\/.*)/);
+                                const span = document.createElement('span');
+                                span.style.color = '#6a9955';
+                                span.style.fontStyle = 'italic';
+                                span.textContent = match[1];
+                                codeElement.appendChild(span);
+                                currentPos += match[1].length;
+                                matched = true;
+                            }
+                            // Check for keywords
+                            else if (line.substr(currentPos).match(/^(contract|function|public|private|pure|view|memory|returns|return|struct)\b/)) {
+                                const match = line.substr(currentPos).match(/^(contract|function|public|private|pure|view|memory|returns|return|struct)\b/);
+                                const span = document.createElement('span');
+                                span.style.color = '#569cd6';
+                                span.style.fontWeight = 'bold';
+                                span.textContent = match[1];
+                                codeElement.appendChild(span);
+                                currentPos += match[1].length;
+                                matched = true;
+                            }
+                            // Check for types
+                            else if (line.substr(currentPos).match(/^(string|uint256|address|bytes32|bool)\b/)) {
+                                const match = line.substr(currentPos).match(/^(string|uint256|address|bytes32|bool)\b/);
+                                const span = document.createElement('span');
+                                span.style.color = '#4ec9b0';
+                                span.style.fontWeight = '600';
+                                span.textContent = match[1];
+                                codeElement.appendChild(span);
+                                currentPos += match[1].length;
+                                matched = true;
+                            }
+                            // Check for hex addresses
+                            else if (line.substr(currentPos).match(/^(0x[a-fA-F0-9]+)\b/)) {
+                                const match = line.substr(currentPos).match(/^(0x[a-fA-F0-9]+)\b/);
+                                const span = document.createElement('span');
+                                span.style.color = '#ff6b6b';
+                                span.style.fontWeight = 'bold';
+                                span.textContent = match[1];
+                                codeElement.appendChild(span);
+                                currentPos += match[1].length;
+                                matched = true;
+                            }
+                            // Check for strings
+                            else if (line.substr(currentPos).match(/^"([^"]*)"/)) {
+                                const match = line.substr(currentPos).match(/^"([^"]*)"/);
+                                codeElement.appendChild(document.createTextNode('"'));
+                                const span = document.createElement('span');
+                                span.style.color = '#ce9178';
+                                span.textContent = match[1];
+                                codeElement.appendChild(span);
+                                codeElement.appendChild(document.createTextNode('"'));
+                                currentPos += match[0].length;
+                                matched = true;
+                            }
+                            // Check for numbers
+                            else if (line.substr(currentPos).match(/^\d+\b/)) {
+                                const match = line.substr(currentPos).match(/^\d+\b/);
+                                const span = document.createElement('span');
+                                span.style.color = '#b5cea8';
+                                span.textContent = match[0];
+                                codeElement.appendChild(span);
+                                currentPos += match[0].length;
+                                matched = true;
+                            }
+                            
+                            // If no match found, add the character as plain text
+                            if (!matched) {
+                                codeElement.appendChild(document.createTextNode(line.charAt(currentPos)));
+                                currentPos++;
+                            }
+                        }
                     });
                     
-                    // Types
-                    const types = ['string', 'uint', 'uint256', 'int', 'int256', 'bool', 'address', 'bytes', 'bytes32'];
-                    types.forEach(type => {
-                        const regex = new RegExp(`\\b(${type})\\b`, 'g');
-                        content = content.replace(regex, '<span class="type">$1</span>');
-                    });
-                    
-                    // Strings
-                    content = content.replace(
-                        /"([^"]*)"/g, 
-                        '"<span class="string">$1</span>"'
-                    );
-                    
-                    // Numbers
-                    content = content.replace(
-                        /\b(\d+)\b/g, 
-                        '<span class="number">$1</span>'
-                    );
-                    
-                    codeElement.innerHTML = content;
+                    codeElement.setAttribute('data-highlighted', 'true');
+                    console.log('DOM-based syntax highlighting completed successfully!');
                 }
             };
             
-            // Apply code highlighting
-            setTimeout(applyCodeSyntaxHighlighting, 500);
+            // Wait for the DOM to be fully loaded
+            const initHighlighting = () => {
+                console.log('DOM ready, applying syntax highlighting...');
+                applyCodeSyntaxHighlighting();
+            };
+            
+            // Multiple attempts to ensure it works
+            if (document.readyState === 'complete') {
+                initHighlighting();
+            } else if (document.readyState === 'interactive') {
+                setTimeout(initHighlighting, 100);
+            } else {
+                document.addEventListener('DOMContentLoaded', initHighlighting);
+            }
+            
+            // Backup attempts
+            setTimeout(applyCodeSyntaxHighlighting, 1000);
+            setTimeout(applyCodeSyntaxHighlighting, 2000);
             
             // Update timestamp dynamically
             const updateTimestamp = () => {
@@ -1215,7 +1527,6 @@
             <h1 class="welcome-title">0xGajendra_Pal</h1>
             <p class="welcome-subtitle">Scan block information, explore transaction history, and discover smart contracts of a professional Web3 developer.</p>
             <button class="enter-btn" id="enter-btn">Enter</button>
-            <a href="#" class="enter-without-motion" id="enter-no-motion">Enter as Guest</a>
         </div>
         <div class="loading-bar">
             <div class="loading-progress" id="loading-progress"></div>
@@ -1229,6 +1540,7 @@
         <div class="container">
             <div class="explorer-logo">
                 <a href="#" class="logo">
+                    <img src="img/avatar.png" alt="0xGajendra_Pal" class="header-avatar">
                     <i class="fas fa-cube"></i> GP<span>Scan</span>
                 </a>
             </div>
@@ -1305,40 +1617,52 @@
                     </div>
                 </div>
 
-                <div class="profile-highlights">
-                    <!-- Name & Title (Like a Transaction) -->
-                    <div class="tx-row">
-                        <div class="tx-label">Name</div>
-                        <div class="tx-value">
-                            <span class="hash-id">0xGajendra_Pal</span>
+                <div class="profile-content">
+                    <div class="profile-avatar">
+                        <img src="img/avatar.png" alt="0xGajendra_Pal Avatar" class="avatar-image">
+                        <div class="avatar-status">
+                            <span class="status-indicator online"></span>
+                            <span class="status-text">ONLINE</span>
                         </div>
                     </div>
-
-                    <!-- Role (Like a Contract) -->
-                    <div class="tx-row">
-                        <div class="tx-label">Role</div>
-                        <div class="tx-value">
-                            <span class="address">Senior Blockchain Engineer</span>
-                            <span class="tx-status success">VERIFIED</span>
+                    
+                    <div class="profile-highlights">
+                        <!-- Name & Title (Like a Transaction) -->
+                        <div class="tx-row">
+                            <div class="tx-label">Name</div>
+                            <div class="tx-value">
+                                <span class="hash-id">0xGajendra_Pal</span>
+                            </div>
                         </div>
-                    </div>
 
-                    <!-- Specialization -->
-                    <div class="tx-row">
-                        <div class="tx-label">Specialization</div>
-                        <div class="tx-value">
-                            Smart Contracts, Cross-Chain DeFi, Web3 Backend, AWS, Node.js, Cloud Architecture
-                            <div class="gas-fee">Optimizing for gas efficiency and security</div>
+                        <!-- Role (Like a Contract) -->
+                        <div class="tx-row">
+                            <div class="tx-label">Role</div>
+                            <div class="tx-value">
+                                <span class="address">Senior Blockchain Engineer</span>
+                                <span class="tx-status success">VERIFIED</span>
+                            </div>
                         </div>
-                    </div>
 
-                    <!-- Current Project -->
-                    <div class="tx-row">
-                        <div class="tx-label">Current Project</div>
-                        <div class="tx-value">
-                            <span class="address">Eigenpie(Liquid Restaking Platform) & Hyperpie (Liquid Staking Platform, DEX and first ever MEME launchpad on Hyperliquid chain)</span>
-                            <span class="tx-status success">ACTIVE</span>
-                            <div class="gas-fee">$1.5B+ TVL managed, built on EigenLayer, Hyperliquid</div>
+                        <!-- Specialization -->
+                        <div class="tx-row">
+                            <div class="tx-label">Specialization</div>
+                            <div class="tx-value">
+                                Smart Contracts, Cross-Chain DeFi, Web3 Backend, AWS, Node.js, Cloud Architecture
+                                <div class="gas-fee">Optimizing for gas efficiency and security</div>
+                            </div>
+                        </div>
+
+                        <!-- Current Project -->
+                        <div class="tx-row">
+                            <div class="tx-label">Current Project</div>
+                            <div class="tx-value">
+                                <span class="address">Eigenpie(Liquid Restaking Platform) & Hyperpie (Liquid Staking Platform, DEX & first ever MEME launchpad on Hyperliquid</span>
+                                <br/>
+                                <span class="address"> chain)</span>
+                                <span class="tx-status success">ACTIVE</span>
+                                <div class="gas-fee">$1.5B+ TVL managed, built on EigenLayer, Hyperliquid</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -2171,7 +2495,7 @@ contract GajendraPalProfile {
                             <div class="tx-title">
                                 Open Source Contribution (Matplotlib)
                                 <span class="tx-status success">MERGED</span>
-                                <a href="https://github.com/matplotlib/matplotlib/pull/20562" target="_blank" class="project-link"><i class="fas fa-external-link-alt"></i></a>
+                                <a href="https://github.com/matplotlib/matplotlib/pull/22001" target="_blank" class="project-link"><i class="fas fa-external-link-alt"></i></a>
                             </div>
                             <div class="tx-description">
                                 Fixed a critical triplot issue, incorporated from version 3.6.0+, benefiting 460k+ global users.
