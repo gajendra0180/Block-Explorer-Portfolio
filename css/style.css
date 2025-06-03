@@ -1,35 +1,38 @@
 :root {
-    --primary-color: #3498db;
-    --secondary-color: rgba(52, 152, 219, 0.2);
-    --accent-color: #2ecc71;
-    --text-color: #f0f0f0;
-    --bg-color: #131C2F;
-    --bg-color-dark: #0F1927;
-    --card-bg: #1D2B44;
-    --nav-bg: rgba(19, 28, 47, 0.95);
-    --border-color: #2c3e50;
+    --primary-color: #79C0FF;
+    --secondary-color: rgba(121, 192, 255, 0.2);
+    --accent-color: #FFA657;
+    --text-color: #f0f6fc;
+    --bg-color: #0d1117;
+    --bg-color-dark: #161b22;
+    --card-bg: #161b22;
+    --nav-bg: rgba(13, 17, 23, 0.95);
+    --border-color: #30363d;
     --terminal-green: #5FFA7B;
     --gradient-primary: linear-gradient(135deg, var(--primary-color), var(--accent-color));
-    --hash-color: #7CB9E8;
+    --hash-color: #79C0FF;
     --tx-success: #2ecc71;
     --tx-pending: #f39c12;
     --tx-failed: #e74c3c;
     --shadow-color: rgba(0, 0, 0, 0.3);
-    --card-radius: 4px;
+    --card-radius: 8px;
     --transition: all 0.3s ease;
     --ff-primary: 'Space Grotesk', monospace;
     --ff-secondary: 'Rajdhani', monospace;
-    --ff-mono: 'Courier New', monospace;
+    --ff-mono: 'Space Mono', monospace;
 }
 
 /* Light Theme Colors */
 [data-theme="light"] {
-    --text-color: #121212;
-    --bg-color: #f9f9f9;
-    --bg-color-dark: #f0f0f0;
+    --primary-color: #0969da;
+    --secondary-color: rgba(9, 105, 218, 0.2);
+    --accent-color: #8250df;
+    --text-color: #24292f;
+    --bg-color: #f6f8fa;
+    --bg-color-dark: #ffffff;
     --card-bg: #ffffff;
-    --nav-bg: rgba(249, 249, 249, 0.9);
-    --border-color: #e0e0e0;
+    --nav-bg: rgba(246, 248, 250, 0.9);
+    --border-color: #d1d9e0;
     --shadow-color: rgba(0, 0, 0, 0.1);
 }
 
@@ -77,12 +80,12 @@ body {
 .primary-btn {
     background: var(--gradient-primary);
     color: white;
-    box-shadow: 0 6px 15px rgba(93, 79, 255, 0.3);
+    box-shadow: 0 6px 15px rgba(121, 192, 255, 0.3);
 }
 
 .primary-btn:hover {
     transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(93, 79, 255, 0.4);
+    box-shadow: 0 10px 20px rgba(121, 192, 255, 0.4);
 }
 
 .secondary-btn {
@@ -305,7 +308,7 @@ body {
     position: relative;
     width: 400px;
     height: 400px;
-    background: radial-gradient(circle at center, rgba(93, 79, 255, 0.2) 0%, rgba(18, 18, 18, 0) 70%);
+    background: radial-gradient(circle at center, rgba(121, 192, 255, 0.2) 0%, rgba(18, 18, 18, 0) 70%);
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -356,7 +359,7 @@ body {
     height: 100%;
     top: 0;
     left: 0;
-    background: linear-gradient(45deg, rgba(93, 79, 255, 0.05) 0%, rgba(0, 0, 0, 0) 70%);
+    background: linear-gradient(45deg, rgba(121, 192, 255, 0.05) 0%, rgba(0, 0, 0, 0) 70%);
     pointer-events: none;
 }
 
@@ -888,13 +891,13 @@ body {
 
 @keyframes pulse {
     0% {
-        box-shadow: 0 0 0 0 rgba(93, 79, 255, 0.4);
+        box-shadow: 0 0 0 0 rgba(121, 192, 255, 0.4);
     }
     70% {
-        box-shadow: 0 0 0 30px rgba(93, 79, 255, 0);
+        box-shadow: 0 0 0 30px rgba(121, 192, 255, 0);
     }
     100% {
-        box-shadow: 0 0 0 0 rgba(93, 79, 255, 0);
+        box-shadow: 0 0 0 0 rgba(121, 192, 255, 0);
     }
 }
 

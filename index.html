@@ -9,7 +9,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='40' fill='%235d4fff' /%3E%3Ctext x='50' y='63' font-family='Arial' font-size='40' font-weight='bold' text-anchor='middle' fill='white'%3EGP%3C/text%3E%3C/svg%3E">
+    <link rel="icon" type="image/png" href="img/avatar.png">
+    <link rel="apple-touch-icon" href="img/avatar.png">
     <style>
         /* Inline styles for immediate cursor application */
         body {
@@ -28,13 +29,13 @@
         .project-link, .tx-title a {
             display: inline-block;
             margin-left: 10px;
-            color: #5d4fff;
+            color: #79C0FF;
             transition: all 0.3s ease;
             vertical-align: middle;
         }
         
         .project-link:hover, .tx-title a:hover {
-            color: #8c7dff;
+            color: #FFA657;
             transform: scale(1.1);
         }
         
@@ -72,8 +73,8 @@
         .method-instructions {
             margin-bottom: 15px;
             padding: 10px;
-            background-color: rgba(93, 79, 255, 0.1);
-            border-left: 3px solid #5d4fff;
+            background-color: rgba(121, 192, 255, 0.1);
+            border-left: 3px solid #79C0FF;
             border-radius: 4px;
         }
         
@@ -83,16 +84,17 @@
         }
         
         body.light-mode {
-            background-color: #f8f9fa;
-            color: #343a40;
+            background: linear-gradient(135deg, #f6f8fa, #ffffff);
+            color: #24292f;
         }
         
         body.light-mode .explorer-container,
         body.light-mode .network-stats,
         body.light-mode .explorer-header-main {
-            background-color: #ffffff;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            border: 1px solid #e9ecef;
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 8px 32px rgba(31, 35, 40, 0.04);
+            border: 1px solid #d1d9e0;
+            backdrop-filter: blur(10px);
         }
         
         body.light-mode .explorer-title,
@@ -107,7 +109,11 @@
         }
         
         body.light-mode .tx-row {
-            border-bottom: 1px solid #e9ecef;
+            border-bottom: 1px solid #d8dee4;
+        }
+        
+        body.light-mode .tx-row:hover {
+            background: rgba(54, 134, 246, 0.08);
         }
         
         body.light-mode .token-item,
@@ -133,7 +139,7 @@
         
         body.light-mode .project-link, 
         body.light-mode .tx-title a {
-            color: #5d4fff;
+            color: #0969da;
         }
         
         body.light-mode .explorer-search .search-input {
@@ -147,8 +153,8 @@
         }
         
         body.light-mode .explorer-nav ul li a.active {
-            color: #5d4fff;
-            border-bottom: 2px solid #5d4fff;
+            color: #0969da;
+            border-bottom: 2px solid #0969da;
         }
         
         body.light-mode .progress-bar {
@@ -156,11 +162,11 @@
         }
         
         body.light-mode .progress-fill {
-            background: linear-gradient(90deg, #5d4fff, #8c7dff);
+            background: linear-gradient(90deg, #0969da, #8250df);
         }
         
         body.light-mode .hash-id {
-            color: #343a40;
+            color: #0969da;
         }
         
         body.light-mode .explorer-footer {
@@ -189,13 +195,14 @@
         }
         
         body.light-mode .contract-code {
-            background-color: #f8f9fa;
-            border: 1px solid #e9ecef;
+            background: #f6f8fa;
+            border: 1px solid #d1d9e0;
+            border-radius: 8px;
         }
         
         body.light-mode .contract-code pre {
-            color: #343a40;
-            background-color: #f8f9fa;
+            background: transparent;
+            color: #24292f;
         }
         
         body.light-mode code {
@@ -211,8 +218,8 @@
         }
         
         body.light-mode .method-name {
-            color: #5d4fff;
-            background-color: rgba(93, 79, 255, 0.08);
+            color: #0969da;
+            background-color: rgba(9, 105, 218, 0.08);
         }
         
         body.light-mode .tx-meta {
@@ -220,7 +227,7 @@
         }
         
         body.light-mode .gas-fee {
-            color: #5d4fff;
+            color: #bc4c00;
         }
         
         body.light-mode .interaction-form {
@@ -229,9 +236,9 @@
         }
         
         body.light-mode .method-instructions {
-            background-color: rgba(93, 79, 255, 0.05);
+            background-color: rgba(9, 105, 218, 0.05);
             color: #343a40;
-            border-left: 3px solid #5d4fff;
+            border-left: 3px solid #0969da;
         }
         
         /* Enhanced loading page with a more dynamic grid background */
@@ -277,8 +284,8 @@
             position: absolute;
             width: 40px;
             height: 40px;
-            background: rgba(93, 79, 255, 0.2);
-            border: 1px solid rgba(93, 79, 255, 0.4);
+            background: rgba(121, 192, 255, 0.2);
+            border: 1px solid rgba(121, 192, 255, 0.4);
             border-radius: 8px;
             transform-style: preserve-3d;
             animation: blockFloat 8s infinite ease-in-out;
@@ -390,14 +397,14 @@
             transform: translateX(-50%);
             width: 40px;
             height: 2px;
-            background: #5d4fff;
+            background: #79C0FF;
         }
         
         .welcome-title {
             font-size: 3rem;
             font-weight: 700;
             margin-bottom: 20px;
-            background: linear-gradient(90deg, #5d4fff, #c4bfff);
+            background: linear-gradient(90deg, #79C0FF, #7DD3FC);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             position: relative;
@@ -415,7 +422,7 @@
         }
         
         .enter-btn {
-            background: linear-gradient(90deg, #5d4fff, #7e70ff);
+            background: linear-gradient(90deg, #79C0FF, #FFA657);
             border: none;
             color: white;
             padding: 15px 30px;
@@ -425,14 +432,14 @@
             cursor: pointer;
             margin-bottom: 15px;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 5px 15px rgba(93, 79, 255, 0.4);
+            box-shadow: 0 5px 15px rgba(121, 192, 255, 0.4);
             position: relative;
             overflow: hidden;
         }
         
         .enter-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(93, 79, 255, 0.6);
+            box-shadow: 0 8px 20px rgba(121, 192, 255, 0.6);
         }
         
         .enter-btn::after {
@@ -495,7 +502,7 @@
         .loading-progress {
             height: 100%;
             width: 0%;
-            background: linear-gradient(90deg, #5d4fff, #8c7dff);
+            background: linear-gradient(90deg, #79C0FF, #7DD3FC);
             border-radius: 2px;
             transition: width 0.3s ease;
         }
@@ -504,9 +511,9 @@
         .interaction-form {
             margin-top: 20px;
             padding: 20px;
-            background: rgba(93, 79, 255, 0.05);
+            background: rgba(121, 192, 255, 0.05);
             border-radius: 8px;
-            border: 1px solid rgba(93, 79, 255, 0.2);
+            border: 1px solid rgba(121, 192, 255, 0.2);
         }
         
         .form-group {
@@ -517,7 +524,7 @@
             display: block;
             margin-bottom: 8px;
             font-weight: 500;
-            color: #5d4fff;
+            color: #79C0FF;
         }
         
         .form-group input, 
@@ -525,7 +532,7 @@
             width: 100%;
             padding: 12px 15px;
             border-radius: 6px;
-            border: 1px solid rgba(93, 79, 255, 0.3);
+            border: 1px solid rgba(121, 192, 255, 0.3);
             background: rgba(20, 30, 60, 0.2);
             color: #fff;
             font-family: 'Space Grotesk', sans-serif;
@@ -535,8 +542,8 @@
         .form-group input:focus, 
         .form-group textarea:focus {
             outline: none;
-            border-color: #5d4fff;
-            box-shadow: 0 0 0 3px rgba(93, 79, 255, 0.2);
+            border-color: #79C0FF;
+            box-shadow: 0 0 0 3px rgba(121, 192, 255, 0.2);
         }
         
         .form-group textarea {
@@ -545,7 +552,7 @@
         }
         
         .execute-btn {
-            background: #5d4fff;
+            background: #79C0FF;
             color: white;
             border: none;
             padding: 12px 24px;
@@ -562,20 +569,20 @@
         }
         
         .execute-btn:hover {
-            background: #4a3cc8;
+            background: #5BA7E6;
             transform: translateY(-2px);
         }
         
         .gas-limit-wrapper {
             margin: 15px 0;
             padding: 10px;
-            background: rgba(93, 79, 255, 0.1);
+            background: rgba(121, 192, 255, 0.1);
             border-radius: 6px;
             font-size: 14px;
         }
         
         .gas-value {
-            color: #5d4fff;
+            color: #79C0FF;
             font-weight: 600;
         }
         
@@ -592,13 +599,14 @@
         }
         
         body.light-mode .gas-limit-wrapper {
-            background: rgba(93, 79, 255, 0.05);
+            background: rgba(121, 192, 255, 0.05);
             color: #333;
         }
         
         body.light-mode .method-instructions {
-            background-color: rgba(93, 79, 255, 0.05);
-            color: #333;
+            background-color: rgba(9, 105, 218, 0.05);
+            color: #343a40;
+            border-left: 3px solid #0969da;
         }
         
         /* Add animations and hover effects */
@@ -617,8 +625,8 @@
         
         .transaction-item:hover {
             transform: scale(1.01);
-            box-shadow: 0 5px 15px rgba(93, 79, 255, 0.15);
-            background-color: rgba(93, 79, 255, 0.02);
+            box-shadow: 0 5px 15px rgba(121, 192, 255, 0.15);
+            background-color: rgba(121, 192, 255, 0.02);
         }
         
         .token-item {
@@ -659,7 +667,7 @@
         body.light-mode .section-header .icon,
         body.light-mode .transaction-item .icon,
         body.light-mode .explorer-container .icon {
-            color: #5d4fff !important;
+            color: #0969da !important;
         }
         
         /* Ensure section headers are visible */
@@ -724,7 +732,7 @@
         
         /* Make contact form elements stand out with a border */
         .contract-interaction {
-            border: 2px solid #5d4fff !important;
+            border: 2px solid #79C0FF !important;
             padding: 20px !important;
             border-radius: 8px !important;
             margin-top: 20px !important;
@@ -743,7 +751,7 @@
         
         /* Make submit button more visible */
         .execute-btn {
-            background: #5d4fff !important;
+            background: #79C0FF !important;
             color: white !important;
             font-weight: bold !important;
             padding: 15px !important;
@@ -759,7 +767,7 @@
         /* Light mode form styles */
         body.light-mode .contract-interaction {
             background-color: #f8f9fa !important;
-            border: 2px solid #5d4fff !important;
+            border: 2px solid #0969da !important;
         }
         
         body.light-mode .form-group input, 
@@ -774,7 +782,7 @@
             position: absolute;
             bottom: 100px;
             font-size: 14px;
-            color: #5d4fff;
+            color: #79C0FF;
             opacity: 0;
             transition: opacity 0.5s ease;
             text-transform: uppercase;
@@ -811,50 +819,50 @@
             border: 1px solid #e9ecef !important;
         }
         
-        /* Syntax Highlighting Styles for Solidity Code */
+        /* Syntax Highlighting Styles for Solidity Code - Dark Mode */
         .contract-code pre code .comment {
-            color: #6a9955;
+            color: #7C9885;
             font-style: italic;
         }
         
         .contract-code pre code .keyword {
-            color: #569cd6;
+            color: #79C0FF;
             font-weight: bold;
         }
         
         .contract-code pre code .type {
-            color: #4ec9b0;
+            color: #7DD3FC;
             font-weight: 600;
         }
         
         .contract-code pre code .string {
-            color: #ce9178;
+            color: #A5D6FF;
         }
         
         .contract-code pre code .number {
-            color: #b5cea8;
+            color: #79C0FF;
         }
         
         .contract-code pre code .function-name {
-            color: #dcdcaa;
+            color: #FFA657;
             font-weight: 600;
         }
         
         .contract-code pre code .modifier {
-            color: #c586c0;
+            color: #D2A8FF;
             font-weight: 600;
         }
         
         .contract-code pre code .operator {
-            color: #d4d4d4;
+            color: #F85149;
         }
         
         .contract-code pre code .bracket {
-            color: #ffd700;
+            color: #FFA657;
         }
         
         .contract-code pre code .address-hex {
-            color: #ff6b6b;
+            color: #FF7B72;
             font-weight: 600;
         }
         
@@ -922,8 +930,8 @@
             width: 120px;
             height: 120px;
             border-radius: 12px;
-            border: 3px solid #5d4fff;
-            box-shadow: 0 8px 25px rgba(93, 79, 255, 0.3);
+            border: 3px solid #79C0FF;
+            box-shadow: 0 8px 25px rgba(121, 192, 255, 0.3);
             transition: all 0.3s ease;
             image-rendering: pixelated;
             image-rendering: -moz-crisp-edges;
@@ -935,7 +943,7 @@
         
         .avatar-image:hover {
             transform: scale(1.05);
-            box-shadow: 0 12px 30px rgba(93, 79, 255, 0.4);
+            box-shadow: 0 12px 30px rgba(121, 192, 255, 0.4);
         }
         
         .avatar-status {
@@ -943,7 +951,7 @@
             bottom: -5px;
             right: -5px;
             background: rgba(20, 30, 60, 0.9);
-            border: 2px solid #5d4fff;
+            border: 2px solid #79C0FF;
             border-radius: 20px;
             padding: 4px 10px;
             display: flex;
@@ -980,7 +988,7 @@
         /* Light mode avatar styles */
         body.light-mode .avatar-status {
             background: rgba(255, 255, 255, 0.9);
-            border-color: #5d4fff;
+            border-color: #0969da;
         }
         
         body.light-mode .status-text {
@@ -996,7 +1004,7 @@
             width: 40px;
             height: 40px;
             border-radius: 8px;
-            border: 2px solid #5d4fff;
+            border: 2px solid #79C0FF;
             margin-right: 10px;
             image-rendering: pixelated;
             image-rendering: -moz-crisp-edges;
@@ -1033,6 +1041,124 @@
             .profile-highlights {
                 width: 100%;
             }
+        }
+        
+        /* Enhanced Dark Mode Theme */
+        body {
+            background: linear-gradient(135deg, #0d1117, #161b22);
+            color: #f0f6fc;
+        }
+        
+        .explorer-container,
+        .network-stats,
+        .explorer-header-main {
+            background: rgba(22, 27, 34, 0.8);
+            border: 1px solid #30363d;
+            backdrop-filter: blur(10px);
+        }
+        
+        .contract-code {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+        }
+        
+        .contract-code pre {
+            background: transparent;
+            color: #f0f6fc;
+        }
+        
+        .tx-row {
+            border-bottom: 1px solid #21262d;
+        }
+        
+        .tx-row:hover {
+            background: rgba(56, 139, 253, 0.1);
+        }
+        
+        .hash-id {
+            color: #79c0ff;
+        }
+        
+        .address {
+            color: #7dd3fc;
+        }
+        
+        .gas-fee {
+            color: #ffa657;
+        }
+        
+        /* Welcome overlay dark theme */
+        .welcome-overlay {
+            background: linear-gradient(135deg, #0d1117, #161b22);
+        }
+        
+        .welcome-content {
+            background: rgba(22, 27, 34, 0.8);
+            border: 1px solid #30363d;
+            backdrop-filter: blur(15px);
+        }
+        
+        body.light-mode .contract-code pre code .address-hex {
+            color: #a40e26;
+            font-weight: 600;
+        }
+        
+        /* Additional light mode enhancements */
+        body.light-mode .avatar-image {
+            background: rgba(246, 248, 250, 0.8);
+            border-color: #0969da;
+        }
+        
+        body.light-mode .header-avatar {
+            background: rgba(246, 248, 250, 0.8);
+            border-color: #0969da;
+        }
+        
+        body.light-mode .avatar-status {
+            background: rgba(255, 255, 255, 0.95);
+            border-color: #0969da;
+        }
+        
+        body.light-mode .welcome-overlay {
+            background: linear-gradient(135deg, #f6f8fa, #ffffff);
+        }
+        
+        body.light-mode .welcome-content {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid #d1d9e0;
+            backdrop-filter: blur(15px);
+            color: #24292f;
+        }
+        
+        body.light-mode .welcome-title {
+            background: linear-gradient(90deg, #0969da, #8250df);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        body.light-mode .enter-btn {
+            background: linear-gradient(90deg, #0969da, #8250df);
+        }
+        
+        body.light-mode .enter-btn:hover {
+            box-shadow: 0 8px 20px rgba(9, 105, 218, 0.4);
+        }
+        
+        body.light-mode .project-number-large {
+            color: #656d76;
+        }
+        
+        body.light-mode .welcome-subtitle {
+            color: #656d76;
+        }
+        
+        body.light-mode .loading-progress {
+            background: linear-gradient(90deg, #0969da, #8250df);
+        }
+        
+        body.light-mode .click-indicator {
+            color: #0969da;
         }
     </style>
     <script>
@@ -1161,7 +1287,7 @@
                         }
                         
                         if (loadingPercentage) {
-                            loadingPercentage.style.color = '#5d4fff';
+                            loadingPercentage.style.color = '#79C0FF';
                         }
                         
                         if (clickIndicator) {
@@ -1228,11 +1354,14 @@
                         while (currentPos < lineLength) {
                             let matched = false;
                             
+                            // Check if we're in light mode
+                            const isLightMode = document.body.classList.contains('light-mode');
+                            
                             // Check for comments
                             if (line.substr(currentPos).match(/^(\/\*[\s\S]*?\*\/|\/\/.*)/)) {
                                 const match = line.substr(currentPos).match(/^(\/\*[\s\S]*?\*\/|\/\/.*)/);
                                 const span = document.createElement('span');
-                                span.style.color = '#6a9955';
+                                span.style.color = isLightMode ? '#6e7781' : '#7C9885';
                                 span.style.fontStyle = 'italic';
                                 span.textContent = match[1];
                                 codeElement.appendChild(span);
@@ -1243,7 +1372,7 @@
                             else if (line.substr(currentPos).match(/^(contract|function|public|private|pure|view|memory|returns|return|struct)\b/)) {
                                 const match = line.substr(currentPos).match(/^(contract|function|public|private|pure|view|memory|returns|return|struct)\b/);
                                 const span = document.createElement('span');
-                                span.style.color = '#569cd6';
+                                span.style.color = isLightMode ? '#cf222e' : '#79C0FF';
                                 span.style.fontWeight = 'bold';
                                 span.textContent = match[1];
                                 codeElement.appendChild(span);
@@ -1254,7 +1383,7 @@
                             else if (line.substr(currentPos).match(/^(string|uint256|address|bytes32|bool)\b/)) {
                                 const match = line.substr(currentPos).match(/^(string|uint256|address|bytes32|bool)\b/);
                                 const span = document.createElement('span');
-                                span.style.color = '#4ec9b0';
+                                span.style.color = isLightMode ? '#0969da' : '#7DD3FC';
                                 span.style.fontWeight = '600';
                                 span.textContent = match[1];
                                 codeElement.appendChild(span);
@@ -1265,7 +1394,7 @@
                             else if (line.substr(currentPos).match(/^(0x[a-fA-F0-9]+)\b/)) {
                                 const match = line.substr(currentPos).match(/^(0x[a-fA-F0-9]+)\b/);
                                 const span = document.createElement('span');
-                                span.style.color = '#ff6b6b';
+                                span.style.color = isLightMode ? '#a40e26' : '#FF7B72';
                                 span.style.fontWeight = 'bold';
                                 span.textContent = match[1];
                                 codeElement.appendChild(span);
@@ -1277,7 +1406,7 @@
                                 const match = line.substr(currentPos).match(/^"([^"]*)"/);
                                 codeElement.appendChild(document.createTextNode('"'));
                                 const span = document.createElement('span');
-                                span.style.color = '#ce9178';
+                                span.style.color = isLightMode ? '#0a3069' : '#A5D6FF';
                                 span.textContent = match[1];
                                 codeElement.appendChild(span);
                                 codeElement.appendChild(document.createTextNode('"'));
@@ -1288,7 +1417,7 @@
                             else if (line.substr(currentPos).match(/^\d+\b/)) {
                                 const match = line.substr(currentPos).match(/^\d+\b/);
                                 const span = document.createElement('span');
-                                span.style.color = '#b5cea8';
+                                span.style.color = '#79C0FF';
                                 span.textContent = match[0];
                                 codeElement.appendChild(span);
                                 currentPos += match[0].length;
@@ -1376,6 +1505,15 @@
                     themeIcon.classList.add('fa-moon');
                     localStorage.setItem('theme', 'dark');
                 }
+                
+                // Refresh syntax highlighting for new theme
+                const codeElement = document.querySelector('.contract-code pre code');
+                if (codeElement && codeElement.hasAttribute('data-highlighted')) {
+                    codeElement.removeAttribute('data-highlighted');
+                    setTimeout(() => {
+                        applyCodeSyntaxHighlighting();
+                    }, 100);
+                }
             });
             
             // Handle contact form submission
@@ -1450,7 +1588,7 @@
             const txRows = document.querySelectorAll('.tx-row');
             txRows.forEach(row => {
                 row.addEventListener('mouseenter', function() {
-                    row.style.backgroundColor = 'rgba(93, 79, 255, 0.05)';
+                    row.style.backgroundColor = 'rgba(121, 192, 255, 0.05)';
                     row.style.transition = 'background-color 0.3s ease';
                 });
                 
