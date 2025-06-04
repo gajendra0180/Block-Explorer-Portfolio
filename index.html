@@ -1691,8 +1691,8 @@
             <div class="explorer-nav">
                 <ul>
                     <li><a href="#home" class="active"><i class="fas fa-user-circle"></i> Profile</a></li>
-                    <li><a href="#blocks"><i class="fas fa-cubes"></i> Blocks</a></li>
-                    <li><a href="#transactions"><i class="fas fa-exchange-alt"></i> Transactions</a></li>
+                    <li><a href="#blocks"><i class="fas fa-cubes"></i> Skills & Technologies</a></li>
+                    <li><a href="#transactions"><i class="fas fa-exchange-alt"></i> Projects</a></li>
                     <li><a href="#education"><i class="fas fa-graduation-cap"></i> Education</a></li>
                     <li><a href="#contact"><i class="fas fa-paper-plane"></i> Contact</a></li>
                 </ul>
@@ -1717,15 +1717,15 @@
             </div>
             <div class="stat-item">
                 <span class="stat-label">Experience:</span>
-                <span class="stat-value">Senior Engineer</span>
+                <span class="stat-value">4+ Years</span>
             </div>
             <div class="stat-item">
                 <span class="stat-label">Transactions:</span>
-                <span class="stat-value">150+</span>
+                <span class="stat-value">200+</span>
             </div>
             <div class="stat-item">
                 <span class="stat-label">Network:</span>
-                <span class="stat-value network-badge">Web3</span>
+                <span class="stat-value network-badge">Web3 & Full-Stack</span>
             </div>
             <div class="stat-item">
                 <span class="stat-label">Current Organization:</span>
@@ -1777,7 +1777,7 @@
                         <div class="tx-row">
                             <div class="tx-label">Role</div>
                             <div class="tx-value">
-                                <span class="address">Senior Blockchain Engineer</span>
+                                <span class="address">Senior Fullstack Blockchain Engineer</span>
                                 <span class="tx-status success">VERIFIED</span>
                             </div>
                         </div>
@@ -1797,7 +1797,7 @@
                             <div class="tx-value">
                                 <span class="address">Eigenpie(Liquid Restaking Platform) & Hyperpie (Liquid Staking Platform, DEX & first ever MEME launchpad on Hyperliquid</span>
                                 <br/>
-                                <span class="address"> chain)</span>
+                                <span class="address">Leading Eigenpie ($1.5B+ TVL) & Hyperpie development on Hyperliquid chain</span>
                                 <span class="tx-status success">ACTIVE</span>
                                 <div class="gas-fee">$1.5B+ TVL managed, built on EigenLayer, Hyperliquid</div>
                             </div>
@@ -1832,7 +1832,7 @@ contract GajendraPalProfile {
      * @notice Professional summary
      */
     function getAboutMe() public pure returns (string memory) {
-        return "Software Engineer specialized in designing scalable backend services (Web2) and advanced decentralized applications (Web3). Extensive experience in developing robust smart contracts, full-stack dApps, SubDAOs, and cloud-native solutions. Successfully managed projects exceeding $1.5B TVL and delivered cross-chain solutions across Ethereum and Layer 2 ecosystems.";
+        return "Senior Fullstack Blockchain Engineer with 4+ years of experience specializing in scalable backend services (Web2) and advanced decentralized applications (Web3). Extensive experience developing robust smart contracts, full-stack dApps, SubDAOs, and cloud-native solutions across multiple companies including Magpie XYZ, Emoha, and Fluid AI. Successfully managed projects exceeding $1.5B TVL, delivered cross-chain solutions across Ethereum and Layer 2 ecosystems, and led development teams to achieve 30%+ performance improvements.";
     }
     
     /**
@@ -1873,13 +1873,43 @@ contract GajendraPalProfile {
      * @notice Previous work experience
      */
     function getPreviousExperience() public pure returns (Experience[] memory) {
-        Experience[] memory experience = new Experience[](1);
+        Experience[] memory experience = new Experience[](5);
+        
         experience[0] = Experience({
-            company: "Magpie",
-            role: "Senior Blockchain Engineer",
-            period: "Nov 2023 - Present",
-            description: "Lead developer for Eigenpie, Hyperpie, & Cakepie. Managing $1.5B+ TVL, built on EigenLayer with cross-chain asset bridging using LayerZero. Developed core protocol smart contracts (vlEGP, vlStreamRewarders), governance modules, and reward distribution systems."
+            company: "Magpie XYZ",
+            role: "Senior Fullstack Blockchain Engineer",
+            period: "Jan 2025 - Present",
+            description: "Developing critical infrastructure contracts including EGP, vlEGP, and MasterEigenpie, supporting a protocol with $1.5B+ TVL. Implementing cross-chain MLRT bridging via LayerZero. Architecting Hyperpie liquid staking protocol on Hyperliquid chain with validator operations and secure on-chain governance. Built automation system using master-slave architecture with Python AWS Lambda functions for signature exchanges."
         });
+        
+        experience[1] = Experience({
+            company: "Magpie XYZ",
+            role: "Blockchain Engineer", 
+            period: "Nov 2023 - Dec 2024",
+            description: "Led deployment of Cakepie across Ethereum and Arbitrum. Spearheaded smart contract development for major IDO events across Radpie, Cakepie, and Eigenpie. Built Smart Converter contract for PancakeSwap's Smart Router. Led EGP token ecosystem development driving $4M+ IDO. Engineered high-performance subgraphs for EigenPie protocol using GraphQL, supporting $1B+ TVL analytics."
+        });
+        
+        experience[2] = Experience({
+            company: "Emoha",
+            role: "Senior Software Engineer",
+            period: "Jul 2023 - Jun 2024",
+            description: "Led backend development team, conducting code reviews and ensuring scalable code delivery. Improved backend performance by 30% through SQL optimization and Redis caching. Migrated Excel report generation to AWS Lambda. Implemented real-time QR payment confirmation using Socket.IO. Automated invoice workflows with Zoho Books APIs integration."
+        });
+        
+        experience[3] = Experience({
+            company: "Emoha", 
+            role: "Software Engineer",
+            period: "Jun 2022 - Jun 2023",
+            description: "Implemented backend integrations with WhatsApp and Email platforms. Automated personalized email workflows using dynamic templates. Developed advanced analytics dashboard for Sales and Operations teams. Built scalable B2B onboarding infrastructure for clients like American Express and Aditya Birla Health Insurance, reducing onboarding time by 40%."
+        });
+        
+        experience[4] = Experience({
+            company: "Fluid AI",
+            role: "Software Developer",
+            period: "Jan 2022 - Jun 2022",
+            description: "Contributed to developing a multitenant Conversational ChatBot Application for National and International Clients. Built chatbot flows and generated analytical reports. Implemented recursive logic for exporting/importing flows with n-level depth. Integrated cubejs Analytics and created Docker image for microservice deployment."
+        });
+        
         return experience;
     }
     
