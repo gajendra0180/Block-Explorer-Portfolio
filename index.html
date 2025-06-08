@@ -184,9 +184,13 @@
         body.light-mode .token-details,
         body.light-mode .token-value,
         body.light-mode .address,
-        body.light-mode .method-description,
         body.light-mode .contact-addresses,
         body.light-mode .category-header h4 {
+            color: #343a40 !important;
+        }
+        
+        /* Separate rule for method-description - NOT in contact form */
+        body.light-mode .method-description:not(.contract-interaction .method-description) {
             color: #343a40 !important;
         }
         
@@ -589,24 +593,137 @@
         /* Light mode for form */
         body.light-mode .form-group input, 
         body.light-mode .form-group textarea {
-            background: #f5f5f7;
-            color: #333;
-            border-color: #e0e0e0;
+            background: #ffffff !important;
+            color: #24292f !important;
+            border: 2px solid #d1d9e0 !important;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+        }
+        
+        body.light-mode .form-group input:focus, 
+        body.light-mode .form-group textarea:focus {
+            border-color: #0969da !important;
+            box-shadow: 0 0 0 3px rgba(9, 105, 218, 0.2) !important;
+            outline: none !important;
         }
         
         body.light-mode .form-group label {
-            color: #333;
+            color: #24292f !important;
+            font-weight: 600 !important;
         }
         
         body.light-mode .gas-limit-wrapper {
-            background: rgba(121, 192, 255, 0.05);
-            color: #333;
+            background: rgba(9, 105, 218, 0.08) !important;
+            color: #24292f !important;
+            border: 1px solid #d1d9e0 !important;
         }
         
         body.light-mode .method-instructions {
-            background-color: rgba(9, 105, 218, 0.05);
-            color: #343a40;
-            border-left: 3px solid #0969da;
+            background-color: rgba(9, 105, 218, 0.08) !important;
+            color: #24292f !important;
+            border-left: 3px solid #0969da !important;
+            border: 1px solid #d1d9e0 !important;
+            border-left: 4px solid #0969da !important;
+        }
+        
+        body.light-mode .method-instructions p {
+            color: #24292f !important;
+            font-weight: 400 !important;
+            line-height: 1.6 !important;
+        }
+        
+        body.light-mode .method-name {
+            color: #0969da !important;
+            background-color: rgba(9, 105, 218, 0.1) !important;
+            border: 1px solid #d1d9e0 !important;
+        }
+        
+        body.light-mode .method-description {
+            color: #656d76 !important;
+        }
+        
+        body.light-mode .execute-btn {
+            background: linear-gradient(90deg, #0969da, #8250df) !important;
+            color: #ffffff !important;
+            border: none !important;
+            box-shadow: 0 3px 10px rgba(9, 105, 218, 0.3) !important;
+        }
+        
+        body.light-mode .execute-btn:hover {
+            background: linear-gradient(90deg, #0860ca, #7048e8) !important;
+            box-shadow: 0 5px 15px rgba(9, 105, 218, 0.4) !important;
+            transform: translateY(-2px) !important;
+        }
+        
+        /* Additional light mode form fixes */
+        body.light-mode .interaction-form {
+            background-color: #f8f9fa !important;
+            border: 1px solid #e9ecef !important;
+            border-radius: 8px !important;
+            padding: 20px !important;
+        }
+        
+        body.light-mode .gas-value {
+            color: #0969da !important;
+            font-weight: 600 !important;
+        }
+        
+        body.light-mode .form-group input::placeholder,
+        body.light-mode .form-group textarea::placeholder {
+            color: #6e7781 !important;
+            opacity: 1 !important;
+        }
+        
+        /* Force all text in contract interaction to be readable in light mode */
+        body.light-mode .contract-interaction * {
+            color: #24292f !important;
+        }
+        
+        body.light-mode .contract-interaction .method-name {
+            color: #0969da !important;
+        }
+        
+        body.light-mode .contract-interaction .gas-value {
+            color: #0969da !important;
+        }
+        
+        body.light-mode .contract-interaction .execute-btn {
+            color: #ffffff !important;
+        }
+        
+        /* Ultra specific targeting for the problematic text */
+        body.light-mode .method-instructions p,
+        body.light-mode .method-instructions,
+        body.light-mode .interaction-method .method-description,
+        body.light-mode .contract-interaction p,
+        body.light-mode .contract-interaction div,
+        body.light-mode .contract-interaction span {
+            color: #24292f !important;
+        }
+        
+        /* Override any inherited colors */
+        body.light-mode .contract-interaction .method-instructions * {
+            color: #24292f !important;
+        }
+        
+        /* Nuclear option - force override all problematic selectors */
+        body.light-mode .method-description {
+            color: #24292f !important;
+        }
+        
+        body.light-mode .method-instructions {
+            color: #24292f !important;
+        }
+        
+        body.light-mode .contract-interaction .method-description {
+            color: #24292f !important;
+        }
+        
+        body.light-mode .contract-interaction .method-instructions {
+            color: #24292f !important;
+        }
+        
+        body.light-mode .contract-interaction .method-instructions p {
+            color: #24292f !important;
         }
         
         /* Add animations and hover effects */
@@ -740,6 +857,13 @@
             display: block !important;
             z-index: 100 !important;
             position: relative !important;
+        }
+        
+        /* Light mode contract interaction container */
+        body.light-mode .contract-interaction {
+            background-color: #ffffff !important;
+            border: 2px solid #0969da !important;
+            box-shadow: 0 4px 12px rgba(9, 105, 218, 0.1) !important;
         }
         
         /* Clear fix for form visibility */
@@ -1691,9 +1815,9 @@
             <div class="explorer-nav">
                 <ul>
                     <li><a href="#home" class="active"><i class="fas fa-user-circle"></i> Profile</a></li>
+                    <li><a href="#experience"><i class="fas fa-briefcase"></i> Work Experience</a></li>
                     <li><a href="#blocks"><i class="fas fa-cubes"></i> Skills & Technologies</a></li>
                     <li><a href="#transactions"><i class="fas fa-exchange-alt"></i> Projects</a></li>
-                    <li><a href="#education"><i class="fas fa-graduation-cap"></i> Education</a></li>
                     <li><a href="#contact"><i class="fas fa-paper-plane"></i> Contact</a></li>
                 </ul>
             </div>
@@ -1717,7 +1841,7 @@
             </div>
             <div class="stat-item">
                 <span class="stat-label">Experience:</span>
-                <span class="stat-value">4+ Years</span>
+                <span class="stat-value">3.5+ Years</span>
             </div>
             <div class="stat-item">
                 <span class="stat-label">Transactions:</span>
@@ -1797,9 +1921,21 @@
                             <div class="tx-value">
                                 <span class="address">Eigenpie(Liquid Restaking Platform) & Hyperpie (Liquid Staking Platform, DEX & first ever MEME launchpad on Hyperliquid</span>
                                 <br/>
-                                <span class="address">Leading Eigenpie ($1.5B+ TVL) & Hyperpie development on Hyperliquid chain</span>
+                                <span class="address">Leading Eigenpie ($1B+ TVL) & Hyperpie development on Hyperliquid chain</span>
                                 <span class="tx-status success">ACTIVE</span>
-                                <div class="gas-fee">$1.5B+ TVL managed, built on EigenLayer, Hyperliquid</div>
+                                <div class="gas-fee">$1B+ TVL managed, built on EigenLayer, Hyperliquid</div>
+                            </div>
+                        </div>
+
+                        <!-- Education -->
+                        <div class="tx-row">
+                            <div class="tx-label">Education</div>
+                            <div class="tx-value">
+                                <span class="address">Bachelor of Engineering in Computer Science</span>
+                                <br/>
+                                <span class="address">Punjab University, Chandigarh, India</span>
+                                <span class="tx-status success">GRADUATED</span>
+                                <div class="gas-fee">GPA: 8.36</div>
                             </div>
                         </div>
                     </div>
@@ -1832,14 +1968,14 @@ contract GajendraPalProfile {
      * @notice Professional summary
      */
     function getAboutMe() public pure returns (string memory) {
-        return "Senior Fullstack Blockchain Engineer with 4+ years of experience specializing in scalable backend services (Web2) and advanced decentralized applications (Web3). Extensive experience developing robust smart contracts, full-stack dApps, SubDAOs, and cloud-native solutions across multiple companies including Magpie XYZ, Emoha, and Fluid AI. Successfully managed projects exceeding $1.5B TVL, delivered cross-chain solutions across Ethereum and Layer 2 ecosystems, and led development teams to achieve 30%+ performance improvements.";
+        return "Senior Fullstack Blockchain Engineer with 3.5+ years of experience specializing in scalable backend services (Web2) and advanced decentralized applications (Web3). Extensive experience developing robust smart contracts, full-stack dApps, SubDAOs, and cloud-native solutions across multiple companies including Magpie XYZ, Emoha, and Fluid AI. Successfully managed projects exceeding $1B TVL, delivered cross-chain solutions across Ethereum and Layer 2 ecosystems, and led development teams to achieve 30%+ performance improvements.";
     }
     
     /**
      * @notice Current position details
      */
     function getCurrentRole() public pure returns (string memory, string memory) {
-        return ("Senior Blockchain Engineer", "Magpie - Managing Eigenpie & Hyperpie, a Liquid Restaking Platform with over $1.5B TVL");
+        return ("Senior Blockchain Engineer", "Magpie - Managing Eigenpie & Hyperpie, a Liquid Restaking Platform with over $1B TVL");
     }
     
     /**
@@ -1855,19 +1991,16 @@ contract GajendraPalProfile {
         return areas;
     }
     
-    /**
-     * @notice Education history
-     */
-    function getEducation() public pure returns (Education[] memory) {
-        Education[] memory education = new Education[](1);
-        education[0] = Education({
-            institution: "Punjab University, Chandigarh, India",
-            degree: "Bachelor of Engineering in Computer Science",
-            year: "Graduated",
-            achievements: "GPA: 8.36"
-        });
-        return education;
-    }
+                        /**
+                     * @notice Education credentials
+                     */
+                    function getEducation() public pure returns (string memory, string memory, string memory) {
+                        return (
+                            "Bachelor of Engineering in Computer Science",
+                            "Punjab University, Chandigarh, India", 
+                            "GPA: 8.36"
+                        );
+                    }
     
     /**
      * @notice Previous work experience
@@ -1879,7 +2012,7 @@ contract GajendraPalProfile {
             company: "Magpie XYZ",
             role: "Senior Fullstack Blockchain Engineer",
             period: "Jan 2025 - Present",
-            description: "Developing critical infrastructure contracts including EGP, vlEGP, and MasterEigenpie, supporting a protocol with $1.5B+ TVL. Implementing cross-chain MLRT bridging via LayerZero. Architecting Hyperpie liquid staking protocol on Hyperliquid chain with validator operations and secure on-chain governance. Built automation system using master-slave architecture with Python AWS Lambda functions for signature exchanges."
+            description: "Developing critical infrastructure contracts including EGP, vlEGP, and MasterEigenpie, supporting a protocol with $1B+ TVL. Implementing cross-chain MLRT bridging via LayerZero. Architecting Hyperpie liquid staking protocol on Hyperliquid chain with validator operations and secure on-chain governance. Built automation system using master-slave architecture with Python AWS Lambda functions for signature exchanges."
         });
         
         experience[1] = Experience({
@@ -1921,7 +2054,7 @@ contract GajendraPalProfile {
         projectHashes[0] = 0x8e7a4f1b95d515d78eb845d9c5d1a880f0e6f42ef5b55bd15558c6c56aecf0db; // Eigenpie
         projectHashes[1] = 0x1b5d4e8f0afedc3e4ef9c7856fb825d5c1a8e093aa9e7b68f1b91f6d77b09aca; // Hyperpie SubDAO
         projectHashes[2] = 0x3f2e9a82b4c7ef4ac96c7de36c1bc7deb9cd7c7be5d6ab5e5e08618d2c4e31ea; // Blockchain Bidding War
-        projectHashes[3] = 0x5dbf8c7de36c1bc7deb9cd7c7be5d6ab5e5e08618d2c4e31ea3f2e9a82b4c7ef; // AI Zoom Bot
+        projectHashes[3] = 0x5dbf8c7de36c1bc7deb9cd7c7be5d6ab5e5e08618d2c4e31ea3f2e9a82b4c7ef; // AI Interview Prep
         projectHashes[4] = 0x7fa9e8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7; // FlappyPy Game
         return projectHashes;
     }
@@ -1937,21 +2070,223 @@ contract GajendraPalProfile {
         return achievements;
     }
     
-    // Struct definitions
-    struct Education {
-        string institution;
-        string degree;
-        string year;
-        string achievements;
-    }
-    
-    struct Experience {
-        string company;
-        string role;
-        string period;
-        string description;
-    }
+                        // Struct definitions
+                    struct Experience {
+                        string company;
+                        string role;
+                        string period;
+                        string description;
+                    }
 }</code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Work Experience Section (Like Block History) -->
+        <section id="experience" class="block-section">
+            <div class="section-header explorer-style">
+                <h2>Work Experience Blocks</h2>
+                <div class="section-subtitle">Professional journey and career milestones in chronological order</div>
+            </div>
+
+            <div class="explorer-container">
+                <div class="explorer-header">
+                    <div class="explorer-title">
+                        <i class="fas fa-briefcase icon"></i>
+                        <h3>Employment History</h3>
+                    </div>
+                </div>
+
+                <div class="transaction-list">
+                    <!-- Magpie XYZ - Senior Position -->
+                    <div class="transaction-item">
+                        <div class="tx-hash">
+                            <i class="fas fa-building"></i>
+                            <span class="hash-id">0xa1f2e3d4c5b6a7e8f9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2</span>
+                        </div>
+                        <div class="tx-details">
+                            <div class="tx-title">
+                                Senior Fullstack Blockchain Engineer
+                                <span class="tx-status success">CURRENT</span>
+                            </div>
+                            <div class="tx-info">
+                                <div class="tx-from-to">
+                                    <div class="tx-from">
+                                        <span class="label">Company:</span>
+                                        <span class="address">Magpie XYZ</span>
+                                    </div>
+                                    <div class="tx-arrow"><i class="fas fa-arrow-right"></i></div>
+                                    <div class="tx-to">
+                                        <span class="label">Duration:</span>
+                                        <span class="address">Jan 2025 - Present</span>
+                                    </div>
+                                </div>
+                                <div class="tx-meta">
+                                    <div class="tx-timestamp">
+                                        <i class="far fa-clock"></i> 6 months
+                                    </div>
+                                    <div class="tx-gas">
+                                        <span class="gas-fee">$1B+ TVL Managed</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tx-description">
+                                Developing critical infrastructure contracts including EGP, vlEGP, and MasterEigenpie, supporting a protocol with $1B+ TVL. Implementing cross-chain MLRT bridging via LayerZero. Architecting Hyperpie liquid staking protocol on Hyperliquid chain with validator operations and secure on-chain governance. Built automation system using master-slave architecture with Python AWS Lambda functions for signature exchanges.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Magpie XYZ - Junior Position -->
+                    <div class="transaction-item">
+                        <div class="tx-hash">
+                            <i class="fas fa-building"></i>
+                            <span class="hash-id">0xb2a3f4e5d6c7b8a9e0f1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3</span>
+                        </div>
+                        <div class="tx-details">
+                            <div class="tx-title">
+                                Blockchain Engineer
+                                <span class="tx-status success">COMPLETED</span>
+                            </div>
+                            <div class="tx-info">
+                                <div class="tx-from-to">
+                                    <div class="tx-from">
+                                        <span class="label">Company:</span>
+                                        <span class="address">Magpie XYZ</span>
+                                    </div>
+                                    <div class="tx-arrow"><i class="fas fa-arrow-right"></i></div>
+                                    <div class="tx-to">
+                                        <span class="label">Duration:</span>
+                                        <span class="address">Nov 2023 - Dec 2024</span>
+                                    </div>
+                                </div>
+                                <div class="tx-meta">
+                                    <div class="tx-timestamp">
+                                        <i class="far fa-clock"></i> 1 year 2 months
+                                    </div>
+                                    <div class="tx-gas">
+                                        <span class="gas-fee">$4M+ IDO Led</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tx-description">
+                                Led deployment of Cakepie across Ethereum and Arbitrum. Spearheaded smart contract development for major IDO events across Radpie, Cakepie, and Eigenpie. Built Smart Converter contract for PancakeSwap's Smart Router. Led EGP token ecosystem development driving $4M+ IDO. Engineered high-performance subgraphs for EigenPie protocol using GraphQL, supporting $1B+ TVL analytics.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Emoha - Senior Position -->
+                    <div class="transaction-item">
+                        <div class="tx-hash">
+                            <i class="fas fa-building"></i>
+                            <span class="hash-id">0xc3b4a5f6e7d8c9b0a1f2e3d4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4</span>
+                        </div>
+                        <div class="tx-details">
+                            <div class="tx-title">
+                                Senior Software Engineer
+                                <span class="tx-status success">COMPLETED</span>
+                            </div>
+                            <div class="tx-info">
+                                <div class="tx-from-to">
+                                    <div class="tx-from">
+                                        <span class="label">Company:</span>
+                                        <span class="address">Emoha</span>
+                                    </div>
+                                    <div class="tx-arrow"><i class="fas fa-arrow-right"></i></div>
+                                    <div class="tx-to">
+                                        <span class="label">Duration:</span>
+                                        <span class="address">Jun 2023 - Nov 2023</span>
+                                    </div>
+                                </div>
+                                <div class="tx-meta">
+                                    <div class="tx-timestamp">
+                                        <i class="far fa-clock"></i> 6 months
+                                    </div>
+                                    <div class="tx-gas">
+                                        <span class="gas-fee">30% Performance Boost</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tx-description">
+                                Led backend development team, conducting code reviews and ensuring scalable code delivery. Improved backend performance by 30% through SQL optimization and Redis caching. Migrated Excel report generation to AWS Lambda. Implemented real-time QR payment confirmation using Socket.IO. Automated invoice workflows with Zoho Books APIs integration.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Emoha - Junior Position -->
+                    <div class="transaction-item">
+                        <div class="tx-hash">
+                            <i class="fas fa-building"></i>
+                            <span class="hash-id">0xd4c5b6a7f8e9d0c1b2a3f4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5</span>
+                        </div>
+                        <div class="tx-details">
+                            <div class="tx-title">
+                                Software Engineer
+                                <span class="tx-status success">COMPLETED</span>
+                            </div>
+                            <div class="tx-info">
+                                <div class="tx-from-to">
+                                    <div class="tx-from">
+                                        <span class="label">Company:</span>
+                                        <span class="address">Emoha</span>
+                                    </div>
+                                    <div class="tx-arrow"><i class="fas fa-arrow-right"></i></div>
+                                    <div class="tx-to">
+                                        <span class="label">Duration:</span>
+                                        <span class="address">Jun 2022 - Jun 2023</span>
+                                    </div>
+                                </div>
+                                <div class="tx-meta">
+                                    <div class="tx-timestamp">
+                                        <i class="far fa-clock"></i> 1 year 1 month
+                                    </div>
+                                    <div class="tx-gas">
+                                        <span class="gas-fee">40% Faster Onboarding</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tx-description">
+                                Implemented backend integrations with WhatsApp and Email platforms. Automated personalized email workflows using dynamic templates. Developed advanced analytics dashboard for Sales and Operations teams. Built scalable B2B onboarding infrastructure for clients like American Express and Aditya Birla Health Insurance, reducing onboarding time by 40%.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Fluid AI -->
+                    <div class="transaction-item">
+                        <div class="tx-hash">
+                            <i class="fas fa-building"></i>
+                            <span class="hash-id">0xe5d6c7b8a9f0e1d2c3b4a5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6</span>
+                        </div>
+                        <div class="tx-details">
+                            <div class="tx-title">
+                                Software Developer
+                                <span class="tx-status success">COMPLETED</span>
+                            </div>
+                            <div class="tx-info">
+                                <div class="tx-from-to">
+                                    <div class="tx-from">
+                                        <span class="label">Company:</span>
+                                        <span class="address">Fluid AI</span>
+                                    </div>
+                                    <div class="tx-arrow"><i class="fas fa-arrow-right"></i></div>
+                                    <div class="tx-to">
+                                        <span class="label">Duration:</span>
+                                        <span class="address">Jan 2022 - Jun 2022</span>
+                                    </div>
+                                </div>
+                                <div class="tx-meta">
+                                    <div class="tx-timestamp">
+                                        <i class="far fa-clock"></i> 6 months
+                                    </div>
+                                    <div class="tx-gas">
+                                        <span class="gas-fee">AI/ML Integration</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tx-description">
+                                Contributed to developing a multitenant Conversational ChatBot Application for National and International Clients. Built chatbot flows and generated analytical reports. Implemented recursive logic for exporting/importing flows with n-level depth. Integrated cubejs Analytics and created Docker image for microservice deployment.
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -2297,12 +2632,12 @@ contract GajendraPalProfile {
                                         <i class="far fa-clock"></i> 2023 Q4 - Present
                                     </div>
                                     <div class="tx-gas">
-                                        <span class="gas-fee">$1.5B+ TVL Secured</span>
+                                        <span class="gas-fee">$1B+ TVL Secured</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="tx-description">
-                                Lead developer for Eigenpie (Liquid Restaking Platform), managing $1.5B+ TVL, built on EigenLayer with cross-chain asset bridging using LayerZero. Developed core protocol smart contracts (vlEGP, vlStreamRewarders), governance modules, and reward distribution systems.
+                                Lead developer for Eigenpie (Liquid Restaking Platform), managing $1B+ TVL, built on EigenLayer with cross-chain asset bridging using LayerZero. Developed core protocol smart contracts (vlEGP, vlStreamRewarders), governance modules, and reward distribution systems.
                             </div>
                         </div>
                     </div>
@@ -2385,7 +2720,7 @@ contract GajendraPalProfile {
                         </div>
                     </div>
 
-                    <!-- AI Zoom Bot -->
+                    <!-- AI Interview Prep -->
                     <div class="transaction-item">
                         <div class="tx-hash">
                             <i class="fas fa-exchange-alt"></i>
@@ -2393,9 +2728,9 @@ contract GajendraPalProfile {
                         </div>
                         <div class="tx-details">
                             <div class="tx-title">
-                                AI Zoom Bot
+                                AI Interview Prep
                                 <span class="tx-status success">COMPLETED</span>
-                                <a href="https://github.com/gajendra0180/AI-Bot-For-Zoom/tree/zoom-GPT-Integration" target="_blank" class="project-link"><i class="fas fa-external-link-alt"></i></a>
+                                <a href="https://github.com/gajendra0180/AI-Interview-Prep" target="_blank" class="project-link"><i class="fas fa-external-link-alt"></i></a>
                             </div>
                             <div class="tx-info">
                                 <div class="tx-from-to">
@@ -2406,7 +2741,7 @@ contract GajendraPalProfile {
                                     <div class="tx-arrow"><i class="fas fa-arrow-right"></i></div>
                                     <div class="tx-to">
                                         <span class="label">Technology:</span>
-                                        <span class="address">Node.js, GPT</span>
+                                        <span class="address">Next.js, Node.js, MongoDB, GPT, OpenAI, NodeMailer</span>
                                     </div>
                                 </div>
                                 <div class="tx-meta">
@@ -2419,7 +2754,7 @@ contract GajendraPalProfile {
                                 </div>
                             </div>
                             <div class="tx-description">
-                                Developed Node.js bot integrated with GPT for live AI-driven conversations in Zoom meetings using speech recognition and synthesis. Created seamless interaction between meeting participants and AI assistant.
+                                A Next.js application designed to help users prepare for interviews, offering features like user authentication, email verification, and customized interview experiences. This application supports a variety of interview preferences, including experience levels, focus areas, and programming languages, offering a smooth and interactive preparation process.
                             </div>
                         </div>
                     </div>
@@ -2554,57 +2889,14 @@ contract GajendraPalProfile {
                     <div class="tx-row">
                         <div class="tx-label">Twitter</div>
                         <div class="tx-value">
-                            <a href="https://twitter.com/gajendra0180" target="_blank" class="address">twitter.com/gajendra0180</a>
+                            <a href="https://twitter.com/error0180" target="_blank" class="address">twitter.com/error0180</a>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Education Section (like Transaction History) -->
-        <section id="education" class="block-section">
-            <div class="section-header explorer-style">
-                <h2>Education Blocks</h2>
-                <div class="section-subtitle">Academic history and credentials</div>
-            </div>
 
-            <div class="explorer-container">
-                <div class="explorer-header">
-                    <div class="explorer-title">
-                        <i class="fas fa-graduation-cap icon"></i>
-                        <h3>Education History</h3>
-                    </div>
-                </div>
-
-                <div class="transaction-list">
-                    <div class="transaction-item">
-                        <div class="tx-hash">
-                            <i class="fas fa-university"></i>
-                            <span class="hash-id">0xed4c82b4c7ef4ac96c7de36c1bc7deb9cd7c7be5d6ab5e5e08618d2c4e31ea3f</span>
-                        </div>
-                        <div class="tx-details">
-                            <div class="tx-title">
-                                Punjab University, Chandigarh, India
-                                <span class="tx-status success">GRADUATED</span>
-                            </div>
-                            <div class="tx-info">
-                                <div class="tx-from-to">
-                                    <div class="tx-from">
-                                        <span class="label">Degree:</span>
-                                        <span class="address">Bachelor of Engineering in Computer Science</span>
-                                    </div>
-                                </div>
-                                <div class="tx-meta">
-                                    <div class="tx-gas">
-                                        <span class="gas-fee">GPA: 8.36</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
 
         <!-- Achievements Section -->
         <section id="achievements" class="block-section">
@@ -2694,7 +2986,7 @@ contract GajendraPalProfile {
                         </div>
                         <div class="stat-item">
                             <span class="stat-label">Gas Price</span>
-                            <span class="stat-value">4+ Years Exp</span>
+                            <span class="stat-value">3.5+ Years Exp</span>
                         </div>
                     </div>
                 </div>
